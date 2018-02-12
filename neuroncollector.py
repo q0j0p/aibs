@@ -7,6 +7,7 @@ import pymongo
 from selenium import webdriver
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from bs4 import BeautifulSoup as BS
 
 MONGODB_URI = 'mongodb://localhost:27017/'
 MONGODB_NAME = 'aibs'
