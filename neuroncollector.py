@@ -2,7 +2,7 @@
 Scrape websites using Firefox or PhantomJS.  Store in predetermined location (directory or mongo database)
 '''
 import time
-from urllib import urlencode
+#from urllib import urlencode
 from selenium import webdriver
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
