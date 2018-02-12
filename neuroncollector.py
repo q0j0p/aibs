@@ -11,6 +11,7 @@ from bs4 import BeautifulSoup as BS
 
 MONGODB_URI = 'mongodb://localhost:27017/'
 MONGODB_NAME = 'aibs'
+MACHINE_OPTIONS= ['local', 'ubuntu']
 
 class Scraper(object):
     """
@@ -18,7 +19,7 @@ class Scraper(object):
     """
     def __init__(self,
                  dbname=MONGODB_NAME,
-                 browser="Firefox"):
+                 browser="Firefox",machine="local"):
         # connect to
         try:
             self.mongoclient = pymongo.MongoClient(MONGODB_URI)
@@ -28,14 +29,19 @@ class Scraper(object):
         self.mongodbase = self.mongoclient[dbname]
         self.coll = self.mongodbase['members']
         self.browser = browser
+        self.machine = machine
         if self.browser == "Firefox":
             self.use_firefox()
         elif self.browser == "Phantom":
             self.use_phantom()
 
     def use_firefox(self):
-        self.driver = webdriver.Firefox(firefox_binary=FirefoxBinary(
-            firefox_path='/usr/bin/firefox'))
+        if self.machine==MACHINE_OPTIONS[0]:
+            self.driver = webdriver.Firefox(firefox_binary=FirefoxBinary(
+                firefox_path='/Applications/FirefoxESR.app/Contents/MacOS/firefox'))
+        elif self.machine==MACHINE_OPTIONS[1]:
+            self.driver = webdriver.Firefox(firefox_binary=FirefoxBinary(
+                firefox_path='/usr/bin/firefox'))
 
     def use_phantom(self):
         dcap = dict(DesiredCapabilities.PHANTOMJS)
