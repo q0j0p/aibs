@@ -2,6 +2,7 @@
 Scrape websites using Firefox or PhantomJS.  Store in predetermined location (directory or mongo database)
 '''
 import time
+import pymongo
 #from urllib import urlencode
 from selenium import webdriver
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
@@ -16,7 +17,7 @@ class Scraper(object):
     """
     def __init__(self,
                  dbname=MONGODB_NAME,
-                 browser="Phantom"):
+                 browser="Firefox"):
         # connect to
         try:
             self.mongoclient = pymongo.MongoClient(MONGODB_URI)
@@ -33,7 +34,7 @@ class Scraper(object):
 
     def use_firefox(self):
         self.driver = webdriver.Firefox(firefox_binary=FirefoxBinary(
-            firefox_path='/Applications/FirefoxESR.app/Contents/MacOS/firefox'))
+            firefox_path='/usr/bin/firefox'))
 
     def use_phantom(self):
         dcap = dict(DesiredCapabilities.PHANTOMJS)
@@ -42,6 +43,6 @@ class Scraper(object):
             "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/537.36 (KHTML,\
             like Gecko) Chrome/56.0.2924.76 Safari/537.36/")
 #        self.driver = webdriver.PhantomJS(desired_capabilities=dcap)
-        self.driver = webdriver.PhantomJS(desired_capabilities=dcap)
-        self.driver.implicity_wait(5)
+        self.driver = webdriver.PhantomJS(executable_path='/usr/local/share/phantomjs-1.9.7-linux-x86_64/bin/phantomjs',desired_capabilities=dcap)
+#        self.driver.implicity_wait(5)
         self.driver.set_window_size(839, 937)
