@@ -22,7 +22,7 @@ class Scraper(object):
             self.mongoclient = pymongo.MongoClient(MONGODB_URI)
             print("Connected to {}".format(MONGODB_URI))
         except pymongo.errors.ConnectionFailure as e:
-            print "Could not connect to MongoDB: %s".format(e)
+            print("Could not connect to MongoDB: %s".format(e))
         self.mongodbase = self.mongoclient[dbname]
         self.coll = self.mongodbase['members']
         self.browser = browser
