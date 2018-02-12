@@ -10,7 +10,7 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 MONGODB_URI = 'mongodb://localhost:27017/'
 MONGODB_NAME = 'aibs'
-MACHINE_OPTIONS= ['local', 'ubuntu']
+MACHINE_OPTIONS= ['mac', 'ubuntu']
 
 class Scraper(object):
     """
@@ -18,7 +18,7 @@ class Scraper(object):
     """
     def __init__(self,
                  dbname=MONGODB_NAME,
-                 browser="Firefox",machine="local"):
+                 browser="Firefox",machine="mac"):
         # connect to
         try:
             self.mongoclient = pymongo.MongoClient(MONGODB_URI)
