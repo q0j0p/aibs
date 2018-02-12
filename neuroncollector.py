@@ -7,7 +7,6 @@ import pymongo
 from selenium import webdriver
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-from bs4 import BeautifulSoup as BS
 
 MONGODB_URI = 'mongodb://localhost:27017/'
 MONGODB_NAME = 'aibs'
@@ -36,12 +35,22 @@ class Scraper(object):
             self.use_phantom()
 
     def use_firefox(self):
+        profile = webdriver.FirefoxProfile()
+        profile.set_preference('browser.download.folderList', 2) # custom location
+        profile.set_preference('browser.download.manager.showWhenStarting', False)
+        profile.set_preference('browser.download.dir', './tmp')
+        profile.set_preference('browser.helperApps.neverAsk.saveToDisk', 'text/csv')
         if self.machine==MACHINE_OPTIONS[0]:
             self.driver = webdriver.Firefox(firefox_binary=FirefoxBinary(
                 firefox_path='/Applications/FirefoxESR.app/Contents/MacOS/firefox'))
         elif self.machine==MACHINE_OPTIONS[1]:
             self.driver = webdriver.Firefox(firefox_binary=FirefoxBinary(
                 firefox_path='/usr/bin/firefox'))
+        profile = webdriver.FirefoxProfile()
+        profile.set_preference('browser.download.folderList', 2) # custom location
+        profile.set_preference('browser.download.manager.showWhenStarting', False)
+        profile.set_preference('browser.download.dir', './tmp')
+        profile.set_preference('browser.helperApps.neverAsk.saveToDisk', 'application/zip')
 
     def use_phantom(self):
         dcap = dict(DesiredCapabilities.PHANTOMJS)
