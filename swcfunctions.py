@@ -45,7 +45,7 @@ def get_child_list(n_df):
 
 def get_termini(n_df):
     child_list = get_child_list(n_df)
-    termini = collections.orderedlist(set(n_df.index.values) - set(child_list))
+    termini = set(n_df.index.values) - set(child_list)
     return termini
 
 def get_path_to_root(n, path_to_root, n_df):
