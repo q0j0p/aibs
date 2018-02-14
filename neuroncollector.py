@@ -13,7 +13,7 @@ MONGODB_URI = 'mongodb://localhost:27017/'
 MONGODB_NAME = 'aibs'
 MACHINE_OPTIONS= ['mac', 'ubuntu']
 
-class Scraper(object):
+class NeuroScraper(object):
     """
 
     """
@@ -36,6 +36,7 @@ class Scraper(object):
             self.use_phantom()
 
     def use_firefox(self):
+        '''launch scraper firefox browser'''
         profile = webdriver.FirefoxProfile()
         profile.set_preference('browser.download.folderList', 2) # custom location
         profile.set_preference('browser.download.manager.showWhenStarting', False)
@@ -49,6 +50,7 @@ class Scraper(object):
                 firefox_path='/usr/bin/firefox'), firefox_profile=profile)
 
     def use_phantom(self):
+        '''launch scraper using phantomjs'''
         dcap = dict(DesiredCapabilities.PHANTOMJS)
         # settings to emulate my machine, which works
         dcap["phantomjs.page.settings.userAgent"] = (
