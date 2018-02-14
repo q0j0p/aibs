@@ -1,9 +1,10 @@
-# aibs
+# Analysis of neuronal cell types
 
 - EDA of cell type data
 - Characterize cell type morphology
 - Classify cell types using ML, isolate important features
-- Simulate the development of cell types using random walk growth (a "generative model")
+- Simulate the development of cell types using random walk growth (a "generative model" of neuronal cell types)
+
 
 
 ### Data sources
