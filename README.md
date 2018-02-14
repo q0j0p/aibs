@@ -1,4 +1,4 @@
-# Analysis of neuronal cell types
+# Analysis of neuronal cell types -WIP
 
 - EDA of cell type data
 - Characterize cell type morphology
