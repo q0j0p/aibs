@@ -11,10 +11,15 @@ def preview_file(swcfile, rows=10):
             print "\t",row
 
 def load_to_dataframe(swcfile, skiprows=1, sep=' '):
-    """Load swc file to pandas dataframe and return"""
+    """Load swc file to pandas dataframe and return dataframe
+    Converts one-index swc to zero index.  """
     n_df = pd.read_csv(swcfile, skiprows=skiprows, sep=sep,
                 names=['index','type','x_coord','y_coord','z_coord','radius','parent']
                 )
+    if int(n_df.loc[1,'parent'])==1 & int(n_df.loc[0,'index'])==1:
+        n_df.loc[1:,'parent']-=1
+        n_df['index']-=1
+        #n_df.iloc[1:,'parent']
     return n_df
 
 def euc_distance_to_root(n_df, root=0): # root=1 for "one-index"
@@ -47,8 +52,8 @@ def get_termini(n_df):
     termini = list(set(n_df.index.values[1:]) - set(child_list.keys()))
     return termini
 
-def get_branches(n_df): 
-    child_list = get_child_list(n_df) 
+def get_branches(n_df):
+    child_list = get_child_list(n_df)
     return [a for a in child_list if len(child_list[a]) > 1]
 
 def get_path_to_root(n, path_to_root, n_df):
@@ -57,12 +62,12 @@ def get_path_to_root(n, path_to_root, n_df):
     if n != -1:
         path_to_root.append(n)
 #        print n
-#        get_path_to_root(n, path_to_root, n_df)
+        get_path_to_root(n, path_to_root, n_df)
 
     return path_to_root
 
 def get_dist_to_root(n, n_df):
     """Given a point n, get distance to root using get_path_to_root"""
-    path_array = np.asarray(get_path_to_root(n,[],n_df))
-    print(path_array)
-    #return distance_to_parent(n_df)[path_array[:-1]].sum()
+    path_array = np.asarray(get_path_to_root(n,[n],n_df),dtype=int)
+    #print(path_array)
+    return distance_to_parent(n_df)[path_array[:-1]].sum()
