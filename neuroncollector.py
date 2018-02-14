@@ -3,6 +3,7 @@ Scrape websites using Firefox or PhantomJS.  Store in predetermined location (di
 '''
 import time
 import pymongo
+import os
 #from urllib import urlencode
 from selenium import webdriver
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
@@ -38,19 +39,14 @@ class Scraper(object):
         profile = webdriver.FirefoxProfile()
         profile.set_preference('browser.download.folderList', 2) # custom location
         profile.set_preference('browser.download.manager.showWhenStarting', False)
-        profile.set_preference('browser.download.dir', './tmp')
-        profile.set_preference('browser.helperApps.neverAsk.saveToDisk', 'text/csv')
+        profile.set_preference('browser.download.dir', os.getcwd())
+        profile.set_preference('browser.helperApps.neverAsk.saveToDisk', 'application/zip')
         if self.machine==MACHINE_OPTIONS[0]:
             self.driver = webdriver.Firefox(firefox_binary=FirefoxBinary(
-                firefox_path='/Applications/FirefoxESR.app/Contents/MacOS/firefox'))
+                firefox_path='/Applications/FirefoxESR.app/Contents/MacOS/firefox'), firefox_profile=profile)
         elif self.machine==MACHINE_OPTIONS[1]:
             self.driver = webdriver.Firefox(firefox_binary=FirefoxBinary(
-                firefox_path='/usr/bin/firefox'))
-        profile = webdriver.FirefoxProfile()
-        profile.set_preference('browser.download.folderList', 2) # custom location
-        profile.set_preference('browser.download.manager.showWhenStarting', False)
-        profile.set_preference('browser.download.dir', './tmp')
-        profile.set_preference('browser.helperApps.neverAsk.saveToDisk', 'application/zip')
+                firefox_path='/usr/bin/firefox'), firefox_profile=profile)
 
     def use_phantom(self):
         dcap = dict(DesiredCapabilities.PHANTOMJS)

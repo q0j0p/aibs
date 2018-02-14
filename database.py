@@ -3,8 +3,13 @@ import neurom as nm
 import os, sys
 import psycopg2
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
-from query import *
+import pymongo
+# from query import *
 import swc
+
+from allensdk.core.cell_types_cache import CellTypesCache, ReporterStatus as RS
+from allensdk.api.queries.cell_types_api import CellTypesApi
+
 DBNAME = "neuron_data"
 USER = None
 HOST = 'localhost'
@@ -116,6 +121,7 @@ class aibs(object):
         self.dbname = MONGODB_NAME
 
     def create_mongodb(self):
+        pass
 
     def db_connect(self):
         try:
@@ -123,4 +129,5 @@ class aibs(object):
             print "Connected to {}".format(MONGODB_URI)
         except pymongo.errors.ConnectionFailure as e:
             print "Could not connect to MongoDB: %s".format(e)
-        self.mongodbase = self.mongoclient[dbname]
+        self.mongodbase = self.mongoclient[self.dbname]
+        self.coll = self.mongodbase['']
