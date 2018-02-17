@@ -58,9 +58,9 @@ def get_branches(n_df):
 
 def get_path_to_root(n, path_to_root, n_df):
     """Given a point, return a list of points connecting to the root"""
-    n = n_df.loc[n,'parent']
+    n = int(n_df.loc[n,'parent'])
     if n != -1:
-        path_to_root.append(n)
+        path_to_root.append(int(n))
 #        print n
         get_path_to_root(n, path_to_root, n_df)
 
