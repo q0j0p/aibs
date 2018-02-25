@@ -99,23 +99,6 @@ class Neuron(object):
 
 
 
-    def create_morphology_table(self):
-
-        create_table_command = """
-            CREATE TABLE neuron (
-                id SERIAL PRIMARY KEY,
-                x FLOAT,
-                y FLOAT,
-                z FLOAT,
-                r FLOAT,
-                p INTEGER);"""
-
-        self.cursor.execute(create_table_command)
-
-    def find_path(self, neuron):
-        pass
-
-
 class aibs(object):
     def __init__(self, dbname=MONGODB_NAME):
         self.dbname = MONGODB_NAME
@@ -131,3 +114,18 @@ class aibs(object):
             print "Could not connect to MongoDB: %s".format(e)
         self.mongodbase = self.mongoclient[self.dbname]
         self.coll = self.mongodbase['']
+
+    def remove_dupes(coll):
+        cursor = coll.aggregate(
+            [
+                {"$group": {"_id": "$id", "unique_ids": {"$addToSet": "$_id"}, "count": {"$sum": 1}}},
+                {"$match": {"count": { "$gte": 2 }}}
+            ])
+
+        response = []
+        for doc in cursor:
+            del doc["unique_ids"][0]
+            for id in doc["unique_ids"]:
+                response.append(id)
+
+        coll.remove({"_id": {"$in": response}})
