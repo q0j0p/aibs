@@ -16,67 +16,67 @@ HOST = 'localhost'
 MONGODB_NAME = "neurons"
 MONGODB_URI = 'mongodb://localhost:27017/'
 
-sql_create = """
-CREATE DATABASE {}
-""".format(DBNAME) # not liable to sql injection
-def create_database():
-    try:
-        #print "start"
-        connection = psycopg2.connect(
-        dbname = 'postgres',
-        host = HOST
-        )
-        connection.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
-        cursor = connection.cursor()
-        cursor.execute(sql_create)
-
-        print "database {} created".format(DBNAME)
-
-    except:
-        print sys.exc_info()[0], sys.exc_info()[1], sys.exc_info()[2]
-
-
-
-def create_table():
-    pass
-
-class Neuron(object):
-    def __init__(self, dbname=DBNAME, host='localhost'):
-        """Connects to posgresql database using psycpog2"""
-        try:
-            self.connection = psycopg2.connect(
-            dbname = dbname,
-            host = host
-            )
-            self.cursor = self.connection.cursor()
-        except:
-            pprint("Cannot connect to database {}".format(dbname))
-            print sys.exc_info()[0], sys.exc_info()[1], sys.exc_info()[2]
-        else:
-            self.connection.autocommit = True
-
-    def _query_sql(self, query):
-        self.cursor.execute(query)
-
-    def create_neuron_table(self):
-        """Creates sql table for neuron data"""
-        create_table_command = """
-            CREATE TABLE IF NOT EXISTS neuron (
-                id SERIAL PRIMARY KEY,
-                name VARCHAR(100),
-                origin VARCHAR(100),
-                experiment_id INT references experiment(ID)
-                );"""
-        self.cursor.execute(create_table_command)
-
-    def get_db_status(self):
-        self._query_sql("""SELECT table_name FROM information_schema.tables
-        WHERE table_schema = 'public'""")
-        for table in self.cursor.fetchall():
-            print(table)
-
-    def close_db(self):
-        self.connection.close()
+# sql_create = """
+# CREATE DATABASE {}
+# """.format(DBNAME) # not liable to sql injection
+# def create_database():
+#     try:
+#         #print "start"
+#         connection = psycopg2.connect(
+#         dbname = 'postgres',
+#         host = HOST
+#         )
+#         connection.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
+#         cursor = connection.cursor()
+#         cursor.execute(sql_create)
+#
+#         print "database {} created".format(DBNAME)
+#
+#     except:
+#         print sys.exc_info()[0], sys.exc_info()[1], sys.exc_info()[2]
+#
+#
+#
+# def create_table():
+#     pass
+#
+# class Neuron(object):
+#     def __init__(self, dbname=DBNAME, host='localhost'):
+#         """Connects to posgresql database using psycpog2"""
+#         try:
+#             self.connection = psycopg2.connect(
+#             dbname = dbname,
+#             host = host
+#             )
+#             self.cursor = self.connection.cursor()
+#         except:
+#             pprint("Cannot connect to database {}".format(dbname))
+#             print sys.exc_info()[0], sys.exc_info()[1], sys.exc_info()[2]
+#         else:
+#             self.connection.autocommit = True
+#
+#     def _query_sql(self, query):
+#         self.cursor.execute(query)
+#
+#     def create_neuron_table(self):
+#         """Creates sql table for neuron data"""
+#         create_table_command = """
+#             CREATE TABLE IF NOT EXISTS neuron (
+#                 id SERIAL PRIMARY KEY,
+#                 name VARCHAR(100),
+#                 origin VARCHAR(100),
+#                 experiment_id INT references experiment(ID)
+#                 );"""
+#         self.cursor.execute(create_table_command)
+#
+#     def get_db_status(self):
+#         self._query_sql("""SELECT table_name FROM information_schema.tables
+#         WHERE table_schema = 'public'""")
+#         for table in self.cursor.fetchall():
+#             print(table)
+#
+#     def close_db(self):
+#         self.connection.close()
 
     def load_swcfile(self, swcfile, name=None):
         """Loads swc file, verifying validity of data.  Ensure:

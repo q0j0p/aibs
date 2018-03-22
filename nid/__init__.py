@@ -1,0 +1,1 @@
+# Temporary global variables

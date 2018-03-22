@@ -1,8 +1,76 @@
+import pymongo
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from pandas.io.json import json_normalize
+from bson import ObjectId, json_util
+import json
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import mean_squared_error
+import collections
+import pprint
+
+# Temporary global variables
+client = pymongo.MongoClient('mongodb://localhost/:27017')
+db = client.aibs
+n_coll = db.neurons
+
+
+def load_data():
+    client = pymongo.MongoClient('mongodb://localhost/:27017')
+    db = client.aibs
+    n_coll = db.neurons
+    n_df = pd.DataFrame({a['id']:a['ephys_features'][0] for a in n_coll.find()}).T
+    n_df.reset_index(inplace=True)
+    return n_df
+
+
+def set_dtypes(df):
+    """Set data types for all features
+    """
+    dtype = collections.defaultdict()
+    dtype_dict = {'f':'float64',
+                  'i':'int64',
+                  'b':'bool',
+                  's':'obj'}
+    for a in df.columns:
+        try:
+            istring = raw_input("'{}' data type: ".format(a))
+            df[a] = df[a].astype(dtype_dict[istring])
+        except KeyError:
+            print("input not in {}".format(dtype_dict))
+
+    return df
+
+
+def show_nans(df):
+    """Observe nans
+    """
+    row_nas = df.T.isna().any()
+    col_nas = df.isna().any()
+    print"Rows with nans:", row_nas.sum()
+    print"Columns with nans:",col_nas.sum()
+    print"\n"
+    for i,j in enumerate(df.isna().sum().items()):
+        print i,j
+
+def remove_nans(df,remove=[], drop_rows=True):
+    """Appropriately remove nans"""
+    df2 = df.drop(columns=df.columns[remove])
+    if drop_rows:
+        df2.dropna(inplace=True)
+    return df2
+
+def get_labels(df, labname):
+    label=collections.defaultdict()
+    for a in  df['index']:
+        label[a] = n_coll.find({'id':a}).next()[labname]
+    return label
+
+
 
 def feature_importance(X, y, n_estimators=100, col_labels=None, importances=None, err=True):
     """Create a plot indicating feature importances
@@ -79,3 +147,10 @@ def leave_one_out_feature_import(X, y, model, criterion=mean_squared_error, norm
     if norm:
         importances = importances / np.sum(importances)
     return importances
+
+
+def get_cell_types():
+    """get
+    """
+    celltypes = list(nmorpho_coll.aggregate(
+   [{"$group" : { "_id" : '$cell_type', "count" : {"$sum" : 1}}}]))
