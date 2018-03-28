@@ -2,6 +2,7 @@
 import pandas as pd
 import numpy as np
 import collections
+import operator
 
 def preview_file(swcfile, rows=15):
     """Preview swc header and first few lines"""
@@ -102,7 +103,7 @@ class NTree(object):
         return np.array(branch_nodes)
 
     def get_terminal_nodes(self):
-        """Given df with child indices, returns numpy array of branch nodes"""
+        """Given df with child indices, returns numpy array of terminal nodes"""
         terminal_nodes = []
         for row in self.df.iterrows():
             if type(row[1]['child_indices']) != list:
@@ -112,26 +113,100 @@ class NTree(object):
     def get_euc_distance_to_root(self):
         return euc_distance_to_root(self.df,self.root_index)
 
-    def get_farthest_subtree_leaf_dist(self):
-        pass
+    def get_lineage(self,l):
+        """Given a node index, yield a generator that traces lineage to root,
+        traversing branch nodes"""
+        branch_nodes = self.get_branch_nodes()
+        n = l
+        lineage = [n]
+        while n != -1:
+            p = self.df.loc[n,'parent']
+            if p in branch_nodes:
+                lineage.append(p)
+            n = p
+        lineage.append(-1)
+        yield lineage
+
+    def get_parent_branch(self,l):
+        """Get parent branch of l"""
+        branch_nodes = self.get_branch_nodes()
+        n = l
+        while True:
+            p = self.df.loc[n,'parent']
+            if p in branch_nodes:
+                return p
+            n = p
+        return n
+
+    def get_child_nodes(self,n):
+        """Given a node, find its children (branches and leaves immediately downstream)"""
+        branch_nodes = self.get_branch_nodes()
+        terminal_nodes = self.get_terminal_nodes()
+        assert n in branch_nodes
+
+        child_nodes = []
+        cl = collections.deque(self.df.loc[n,'child_indices'])
+        while len(cl)>0:
+            c = cl.pop()
+            if any([(c in branch_nodes), (c in terminal_nodes)]):
+                child_nodes.append(c)
+            else:
+                cl.extendleft(self.df.loc[c,'child_indices'])
+        return child_nodes
+
+
+
+    def get_subtree_leaves(self,n):
+        """Given node index n, return list of leaves in subtree"""
+        terminal_nodes = self.get_terminal_nodes()
+        cl = self.df.loc[n,'child_indices']
+        if type(cl)==list:
+            node_list = collections.deque(cl)
+        else:
+            return [n]
+
+        subtree_leaves = []
+        while len(node_list) != 0:
+            n = node_list.popleft()
+            cl = self.df.loc[n,'child_indices']
+            if type(cl)==list:
+                if len(cl)>1:
+                    node_list.extendleft(cl)
+                elif len(cl) == 1:
+                    node_list.appendleft(cl[0])
+            else:
+                subtree_leaves.append(n)
+        return subtree_leaves
+
+
+    def get_farthest_subtree_leaf_dist(self,n):
+        """Given node index n, return distance of farthest leaf in subtree starting from n"""
+        subtree_leaves= self.get_subtree_leaves(n)
+        if len(subtree_leaves)==1:
+            return self.df.loc[subtree_leaves,'euc_dist_to_root']
+        else:
+            return self.df.loc[subtree_leaves,'euc_dist_to_root'].sort_values()[-1:]
+
 
     def get_persistence_barcode(self):
+        """Implement persistence ba"""
         D_t = []
         active_list = list(self.get_terminal_nodes())
-        v_l = collections.defaultdict()
+        v_ = collections.defaultdict()
         for l in active_list:
-            v_l[l] = self.df.loc[n,'euc_dist_to_root']
-        while 1 not in active_list:
+            v_[l] = self.df.loc[l,'euc_dist_to_root']
+        while self.root_index not in active_list:
             for l in active_list:
-                p = self.df.loc[l,'parent']
-                C = self.df.loc[p,'child_indices']
-                if type(C) == list & all([n in active_list for n in C]):
-                    c_m = self.df.loc[C,'euc_dist_to_root'].argmax()
+                p = self.get_parent_branch(l)
+                C = self.get_child_nodes(p) # immediate branches or leaves below p
+                if all([n in active_list for n in C]):
+                    vc_ = dict((k,v_[k]) for k in C)
+                    c_m = max(vc_.items(), key=operator.itemgetter(1))[0]
                     active_list.append(p)
                     for c in C:
                         active_list.remove(c)
                         if c != c_m:
-                            D_t.append((self.get_farthest_subtree_leaf_dist(c),
-                                        self.df.loc[p,'euc_dist_to_root']))
-        D_t.append(self.get_farthest_subtree_leaf_dist(1),self.df.loc[1,'euc_dist_to_root'])
+                            D_t.append((v_[c], self.df.loc[p,'euc_dist_to_root']))
+                    v_[p] = v_[c_m]
+        D_t.append((self.get_farthest_subtree_leaf_dist(1).values[0],self.df.loc[1,'euc_dist_to_root']))
         return D_t
