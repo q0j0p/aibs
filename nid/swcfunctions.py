@@ -2,6 +2,7 @@
 import pandas as pd
 import numpy as np
 import collections
+import functools
 import operator
 
 def preview_file(swcfile, rows=15):
@@ -18,7 +19,7 @@ def load_to_dataframe(swcfile, skiprows=1, sep=' ',dtype={'index':'uint8','type'
                 )
     return n_df
 
-def euc_distance_to_root(n_df, root_index=0):
+def euc_distance_to_root(n_df, root_index=1):
     """For each point, calculate euclidean distance to root (default root index=0);
     add as column euc_dist_root"""
     dist_coords = np.array(
@@ -39,7 +40,8 @@ def get_child_list(n_df):
     childlist = collections.defaultdict(list)
     for row in n_df.iterrows():
         childlist[int(row[1]['parent'])].append(row[0])
-    del childlist[-1]
+    # if childlist.get(-1):
+    #     del childlist[-1]
     childlist_df = pd.DataFrame(pd.Series(childlist))
     childlist_df.columns=['child_indices']
     return childlist_df
@@ -68,11 +70,22 @@ def get_persistence_barcode(tree):
     """
     pass
 
+
+def memoize(obj):
+    cache = obj.cache = {}
+
+    @functools.wraps(obj)
+    def memoizer(*args, **kwargs):
+        if args not in cache:
+            cache[args] = obj(*args, **kwargs)
+        return cache[args]
+    return memoizer
+
 class NTree(object):
     """This class generates morophology information from swc files.
     """
     def __init__(self,swcfile,skiprows=1,root_index=1):
-        self.root_index = 1
+        self.root_index = root_index
         self.df = self.load_to_dataframe(swcfile,skiprows)
         self.df['child_indices'] = self._get_child_list()
         self.df['euc_dist_to_root'] = self.get_euc_distance_to_root()
@@ -127,6 +140,7 @@ class NTree(object):
         lineage.append(-1)
         yield lineage
 
+    @memoize
     def get_parent_branch(self,l):
         """Get parent branch of l"""
         branch_nodes = self.get_branch_nodes()
@@ -138,6 +152,7 @@ class NTree(object):
             n = p
         return n
 
+    @memoize
     def get_child_nodes(self,n):
         """Given a node, find its children (branches and leaves immediately downstream)"""
         branch_nodes = self.get_branch_nodes()
@@ -189,7 +204,7 @@ class NTree(object):
 
 
     def get_persistence_barcode(self):
-        """Implement persistence ba"""
+        """Implement persistence barcode analysis"""
         D_t = []
         active_list = list(self.get_terminal_nodes())
         v_ = collections.defaultdict()
@@ -197,7 +212,7 @@ class NTree(object):
             v_[l] = self.df.loc[l,'euc_dist_to_root']
         while self.root_index not in active_list:
             for l in active_list:
-                p = self.get_parent_branch(l)
+                p = self.get_parent_branch(l) #*make hash
                 C = self.get_child_nodes(p) # immediate branches or leaves below p
                 if all([n in active_list for n in C]):
                     vc_ = dict((k,v_[k]) for k in C)
@@ -208,5 +223,8 @@ class NTree(object):
                         if c != c_m:
                             D_t.append((v_[c], self.df.loc[p,'euc_dist_to_root']))
                     v_[p] = v_[c_m]
-        D_t.append((self.get_farthest_subtree_leaf_dist(1).values[0],self.df.loc[1,'euc_dist_to_root']))
+        D_t.append((v_[self.root_index],self.df.loc[self.root_index,'euc_dist_to_root']))
         return D_t
+
+    def barcode_density_profile(self):
+        pass
