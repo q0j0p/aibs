@@ -1,0 +1,100 @@
+# Standardization file for E100616.swc created with StdSwc version 1.31 on 6/24/15.
+# Edited SWC file saved as E100616.swc.CNG.swc.  See StdSwc1.31.doc for more information.
+#
+# code   irregularity_description. (action taken)
+#     irregularity_type     coordinates
+#
+2.5  Seg length ending at pt. 6 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  4.33  -9.36  2.11
+2.5  Seg length ending at pt. 45 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  -43.97  150.94  -14.54
+2.5  Seg length ending at pt. 76 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  -16.99  242.51  -48.63
+2.5  Seg length ending at pt. 80 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  -51.11  91.6  -5.68
+2.5  Seg length ending at pt. 111 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  -74.89  25.53  -26.82
+2.5  Seg length ending at pt. 115 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  -93.24  35.81  -36.36
+2.5  Seg length ending at pt. 137 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  -241.6  32.33  -59.54
+2.5  Seg length ending at pt. 143 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  -39.59  22.85  -40.68
+2.5  Seg length ending at pt. 149 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  -41.82  15.72  -50.53
+2.5  Seg length ending at pt. 160 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  -82.16  48.95  -50.6
+2.5  Seg length ending at pt. 204 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  -81.1  111.67  30.06
+2.5  Seg length ending at pt. 210 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  -33.72  64.06  3.85
+2.5  Seg length ending at pt. 302 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  35.77  12.63  7.79
+2.5  Seg length ending at pt. 349 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  -4.47  -16.48  16.5
+2.5  Seg length ending at pt. 440 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  -80.62  -110.23  -16.36
+2.5  Seg length ending at pt. 507 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  -155.6  -226.71  -55.15
+2.5  Seg length ending at pt. 601 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  -17.44  -125.97  -91.88
+2.5  Seg length ending at pt. 615 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  -8.3  -122.91  -74.54
+2.5  Seg length ending at pt. 814 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  -50.05  -114.1  -84.16
+2.5  Seg length ending at pt. 949 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  -67.07  -147.53  -81.13
+2.5  Seg length ending at pt. 962 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  -111.35  -179.44  -116.28
+2.5  Seg length ending at pt. 968 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  -135.58  -168.43  -134.91
+2.5  Seg length ending at pt. 993 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  -123.37  -154.41  -110.44
+2.5  Seg length ending at pt. 1057 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  -176.96  -213.97  -92.95
+2.5  Seg length ending at pt. 1094 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  -172.27  -207.95  -66.74
+2.5  Seg length ending at pt. 1213 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  -133.91  -190.65  -51.36
+2.5  Seg length ending at pt. 1336 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  -73.38  -146.33  0.75
+2.5  Seg length ending at pt. 1540 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  -52.17  -141.64  10.67
+2.5  Seg length ending at pt. 1571 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  2.58  -59.34  42.33
+2.5  Seg length ending at pt. 1608 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  -91.43  -177.39  29.53
+2.5  Seg length ending at pt. 1632 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  -16.14  -9.82  4.08
+2.5  Seg length ending at pt. 1751 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  122.59  112.43  6.66
+2.4  Seg length ending at pt. 1755 >= 6.0 stdevs above mean at 45.6322.  (no action taken)
+     B1      X, Y, Z:  126.03  155.46  3.55
+2.4  Seg length ending at pt. 1756 >= 6.0 stdevs above mean at 46.601.  (no action taken)
+     B1      X, Y, Z:  129.88  109.09  6.13
+2.5  Seg length ending at pt. 1757 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  129.88  109.09  6.2
+2.5  Seg length ending at pt. 1781 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  176.72  60.69  26.81
+2.5  Seg length ending at pt. 1938 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  -133.74  -108.45  -17.27
+2.5  Seg length ending at pt. 2112 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  135.91  119.97  17.64
+2.5  Seg length ending at pt. 2385 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  99.89  165.62  -3.26
+2.5  Seg length ending at pt. 2393 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  116.52  113.15  4.08
+2.5  Seg length ending at pt. 2480 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  66.54  71.24  -85.82
+2.5  Seg length ending at pt. 2593 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  127.04  35.63  -47.19
+2.1  Line 1 has 7 daughters.  Type is 1.  (no action taken)
+     B1      X, Y, Z:  0.0  0.0  0.0
+ 
+ 
+
+
+Number of type A irregularities = 40
+Number of type B1 irregularities = 3
+Number of type B2 irregularities = 0
+Number of type C irregularities = 0

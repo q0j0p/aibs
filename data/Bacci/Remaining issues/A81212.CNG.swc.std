@@ -1,0 +1,105 @@
+# Standardization file for A81212.CNG.swc created with StdSwc version 1.31 on 6/25/15.
+#
+# code   irregularity_description. (action taken)
+#     irregularity_type     coordinates
+#
+4.5  Radius of terminal line 935 at 0.07 >= 5.0 stdevs above the mean.  (no action taken)
+     B1      X, Y, Z:  172.55  79.2  17.48
+4.5  Radius of terminal line 948 at 0.07 >= 5.0 stdevs above the mean.  (no action taken)
+     B1      X, Y, Z:  87.9  69.95  15.13
+4.5  Radius of terminal line 1039 at 0.07 >= 5.0 stdevs above the mean.  (no action taken)
+     B1      X, Y, Z:  51.86  224.62  -8.86
+4.5  Radius of terminal line 1103 at 0.07 >= 5.0 stdevs above the mean.  (no action taken)
+     B1      X, Y, Z:  41.11  264.27  15.93
+4.5  Radius of terminal line 1123 at 0.07 >= 5.0 stdevs above the mean.  (no action taken)
+     B1      X, Y, Z:  -76.07  65.27  4.58
+4.5  Radius of terminal line 1131 at 0.07 >= 5.0 stdevs above the mean.  (no action taken)
+     B1      X, Y, Z:  -27.2  74.52  11.53
+4.5  Radius of terminal line 125 at 0.07 >= 5.0 stdevs above the mean.  (no action taken)
+     B1      X, Y, Z:  -102.89  282.59  12.28
+4.5  Radius of terminal line 160 at 0.07 >= 5.0 stdevs above the mean.  (no action taken)
+     B1      X, Y, Z:  31.5  204.71  20.48
+4.5  Radius of terminal line 164 at 0.07 >= 5.0 stdevs above the mean.  (no action taken)
+     B1      X, Y, Z:  16.64  210.73  20.78
+4.5  Radius of terminal line 204 at 0.07 >= 5.0 stdevs above the mean.  (no action taken)
+     B1      X, Y, Z:  -162.62  177.21  0.13
+4.5  Radius of terminal line 216 at 0.07 >= 5.0 stdevs above the mean.  (no action taken)
+     B1      X, Y, Z:  -56.68  40.56  16.28
+4.5  Radius of terminal line 222 at 0.07 >= 5.0 stdevs above the mean.  (no action taken)
+     B1      X, Y, Z:  -36.88  54.2  17.63
+4.5  Radius of terminal line 231 at 0.07 >= 5.0 stdevs above the mean.  (no action taken)
+     B1      X, Y, Z:  -54.27  81.78  14.78
+4.5  Radius of terminal line 265 at 0.07 >= 5.0 stdevs above the mean.  (no action taken)
+     B1      X, Y, Z:  -76.18  65.5  23.13
+4.5  Radius of terminal line 280 at 0.07 >= 5.0 stdevs above the mean.  (no action taken)
+     B1      X, Y, Z:  -65.09  16.54  15.33
+4.5  Radius of terminal line 286 at 0.07 >= 5.0 stdevs above the mean.  (no action taken)
+     B1      X, Y, Z:  -76.93  14.39  14.13
+4.5  Radius of terminal line 309 at 0.07 >= 5.0 stdevs above the mean.  (no action taken)
+     B1      X, Y, Z:  -71.11  38.48  13.33
+4.5  Radius of terminal line 342 at 0.07 >= 5.0 stdevs above the mean.  (no action taken)
+     B1      X, Y, Z:  -125.09  113.65  19.13
+4.5  Radius of terminal line 367 at 0.07 >= 5.0 stdevs above the mean.  (no action taken)
+     B1      X, Y, Z:  -110.05  57.43  31.03
+4.5  Radius of terminal line 406 at 0.07 >= 5.0 stdevs above the mean.  (no action taken)
+     B1      X, Y, Z:  -129.28  46.86  37.88
+4.5  Radius of terminal line 408 at 0.07 >= 5.0 stdevs above the mean.  (no action taken)
+     B1      X, Y, Z:  -106.95  45.81  25.88
+4.5  Radius of terminal line 454 at 0.07 >= 5.0 stdevs above the mean.  (no action taken)
+     B1      X, Y, Z:  -199.45  104.14  -2.77
+4.5  Radius of terminal line 479 at 0.07 >= 5.0 stdevs above the mean.  (no action taken)
+     B1      X, Y, Z:  -234.43  -17.79  -27.87
+4.5  Radius of terminal line 523 at 0.07 >= 5.0 stdevs above the mean.  (no action taken)
+     B1      X, Y, Z:  -310.6  11.2  -28.62
+4.5  Radius of terminal line 547 at 0.07 >= 5.0 stdevs above the mean.  (no action taken)
+     B1      X, Y, Z:  -95.56  75.9  34.53
+4.5  Radius of terminal line 549 at 0.07 >= 5.0 stdevs above the mean.  (no action taken)
+     B1      X, Y, Z:  -87.09  30.56  22.28
+4.5  Radius of terminal line 550 at 0.07 >= 5.0 stdevs above the mean.  (no action taken)
+     B1      X, Y, Z:  -26.09  57.13  12.43
+4.5  Radius of terminal line 637 at 0.07 >= 5.0 stdevs above the mean.  (no action taken)
+     B1      X, Y, Z:  125.25  -68.2  7.53
+4.5  Radius of terminal line 652 at 0.07 >= 5.0 stdevs above the mean.  (no action taken)
+     B1      X, Y, Z:  123.12  -43.11  9.88
+4.5  Radius of terminal line 690 at 0.07 >= 5.0 stdevs above the mean.  (no action taken)
+     B1      X, Y, Z:  190.73  -65.81  8.28
+4.5  Radius of terminal line 698 at 0.07 >= 5.0 stdevs above the mean.  (no action taken)
+     B1      X, Y, Z:  157.82  -33.16  7.38
+4.5  Radius of terminal line 712 at 0.07 >= 5.0 stdevs above the mean.  (no action taken)
+     B1      X, Y, Z:  151.45  -57.07  4.78
+4.5  Radius of terminal line 714 at 0.07 >= 5.0 stdevs above the mean.  (no action taken)
+     B1      X, Y, Z:  103.23  -76.61  5.98
+4.5  Radius of terminal line 748 at 0.07 >= 5.0 stdevs above the mean.  (no action taken)
+     B1      X, Y, Z:  41.77  -60.31  6.38
+4.5  Radius of terminal line 755 at 0.07 >= 5.0 stdevs above the mean.  (no action taken)
+     B1      X, Y, Z:  38.0  -31.2  -0.27
+4.5  Radius of terminal line 776 at 0.07 >= 5.0 stdevs above the mean.  (no action taken)
+     B1      X, Y, Z:  81.46  -39.32  -4.17
+4.5  Radius of terminal line 828 at 0.07 >= 5.0 stdevs above the mean.  (no action taken)
+     B1      X, Y, Z:  66.06  -84.39  -8.17
+4.5  Radius of terminal line 830 at 0.07 >= 5.0 stdevs above the mean.  (no action taken)
+     B1      X, Y, Z:  57.99  -73.92  -9.67
+4.5  Radius of terminal line 836 at 0.07 >= 5.0 stdevs above the mean.  (no action taken)
+     B1      X, Y, Z:  7.02  -64.36  -6.67
+4.5  Radius of terminal line 859 at 0.07 >= 5.0 stdevs above the mean.  (no action taken)
+     B1      X, Y, Z:  129.71  -29.68  -23.22
+4.5  Radius of terminal line 865 at 0.07 >= 5.0 stdevs above the mean.  (no action taken)
+     B1      X, Y, Z:  117.45  -22.27  -10.17
+4.5  Radius of terminal line 871 at 0.07 >= 5.0 stdevs above the mean.  (no action taken)
+     B1      X, Y, Z:  89.74  -43.33  -7.37
+2.4  Length of segment ending at point 1104 >= 6.0 stdevs above mean at 52.6651.  (no action taken)
+     B1      X, Y, Z:  -24.4  57.18  5.73
+2.4  Length of segment ending at point 165 >= 6.0 stdevs above mean at 60.82.  (no action taken)
+     B1      X, Y, Z:  -82.77  79.93  -7.36
+2.4  Length of segment ending at point 422 >= 6.0 stdevs above mean at 30.6758.  (no action taken)
+     B1      X, Y, Z:  -137.42  41.75  -5.37
+2.4  Length of segment ending at point 455 >= 6.0 stdevs above mean at 96.6184.  (no action taken)
+     B1      X, Y, Z:  -190.64  -20.05  -61.11
+2.4  Length of segment ending at point 480 >= 6.0 stdevs above mean at 33.9301.  (no action taken)
+     B1      X, Y, Z:  -243.11  -10.74  -66.46
+2.4  Length of segment ending at point 551 >= 6.0 stdevs above mean at 31.7695.  (no action taken)
+     B1      X, Y, Z:  16.8  -20.86  0.18
+2.1  Line 1 has 4 daughters.  Type is 1.  (no action taken)
+     B1      X, Y, Z:  0.0  0.0  0.0
+ 
+ 

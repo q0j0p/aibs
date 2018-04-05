@@ -1,0 +1,23 @@
+# Standardization file for F091109.CNG.swc created with StdSwc version 1.31 on 6/25/15.
+#
+# code   irregularity_description. (action taken)
+#     irregularity_type     coordinates
+#
+2.4  Length of segment ending at point 14 >= 6.0 stdevs above mean at 41.655.  (no action taken)
+     B1      X, Y, Z:  59.92  97.96  15.41
+2.4  Length of segment ending at point 16 >= 6.0 stdevs above mean at 42.4218.  (no action taken)
+     B1      X, Y, Z:  101.25  162.61  30.1
+2.4  Length of segment ending at point 751 >= 6.0 stdevs above mean at 75.2236.  (no action taken)
+     B1      X, Y, Z:  3.2  -27.11  -81.14
+2.4  Length of segment ending at point 872 >= 6.0 stdevs above mean at 49.6271.  (no action taken)
+     B1      X, Y, Z:  -22.82  -26.24  -115.14
+2.4  Length of segment ending at point 889 >= 6.0 stdevs above mean at 32.3244.  (no action taken)
+     B1      X, Y, Z:  -80.02  7.72  -124.39
+2.4  Length of segment ending at point 893 >= 6.0 stdevs above mean at 30.5435.  (no action taken)
+     B1      X, Y, Z:  -116.62  10.29  -133.81
+2.4  Length of segment ending at point 1446 >= 6.0 stdevs above mean at 51.1043.  (no action taken)
+     B1      X, Y, Z:  -31.57  -112.01  -97.45
+2.1  Line 1 has 4 daughters.  Type is 1.  (no action taken)
+     B1      X, Y, Z:  0.0  0.0  0.0
+ 
+ 

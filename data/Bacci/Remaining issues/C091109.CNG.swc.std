@@ -1,0 +1,23 @@
+# Standardization file for C091109.CNG.swc created with StdSwc version 1.31 on 6/25/15.
+#
+# code   irregularity_description. (action taken)
+#     irregularity_type     coordinates
+#
+4.5  Radius of terminal line 16 at 0.18 >= 5.0 stdevs above the mean.  (no action taken)
+     B1      X, Y, Z:  10.5  -66.73  10.25
+4.5  Radius of terminal line 35 at 0.18 >= 5.0 stdevs above the mean.  (no action taken)
+     B1      X, Y, Z:  -20.76  168.35  1.95
+4.5  Radius of terminal line 2212 at 0.18 >= 5.0 stdevs above the mean.  (no action taken)
+     B1      X, Y, Z:  6.0  -37.81  -19.82
+4.5  Radius of terminal line 2230 at 0.18 >= 5.0 stdevs above the mean.  (no action taken)
+     B1      X, Y, Z:  108.45  53.33  0.4
+2.4  Length of segment ending at point 290 >= 6.0 stdevs above mean at 72.384.  (no action taken)
+     B1      X, Y, Z:  -50.27  -5.27  -58.29
+2.4  Length of segment ending at point 1645 >= 6.0 stdevs above mean at 30.4889.  (no action taken)
+     B1      X, Y, Z:  79.84  14.61  -110.86
+2.4  Length of segment ending at point 1795 >= 6.0 stdevs above mean at 30.3774.  (no action taken)
+     B1      X, Y, Z:  -59.66  53.73  -150.33
+2.1  Line 1 has 7 daughters.  Type is 1.  (no action taken)
+     B1      X, Y, Z:  0.0  0.0  0.0
+ 
+ 

@@ -1,0 +1,80 @@
+# Standardization file for F091118.swc created with StdSwc version 1.31 on 6/24/15.
+# Edited SWC file saved as F091118.swc.CNG.swc.  See StdSwc1.31.doc for more information.
+#
+# code   irregularity_description. (action taken)
+#     irregularity_type     coordinates
+#
+2.5  Seg length ending at pt. 226 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  -12.03  53.85  -27.19
+2.5  Seg length ending at pt. 241 <= 0.1 at 0.09.  (removed)
+     A       X, Y, Z:  -32.56  37.57  -41.43
+2.5  Seg length ending at pt. 388 <= 0.1 at 0.09.  (removed)
+     A       X, Y, Z:  -59.38  111.47  -24.54
+2.4  Seg length ending at pt. 568 >= 6.0 stdevs above mean at 59.1845.  (no action taken)
+     B1      X, Y, Z:  43.71  -118.82  -12.1
+2.4  Seg length ending at pt. 781 >= 6.0 stdevs above mean at 31.3064.  (no action taken)
+     B1      X, Y, Z:  11.78  -22.24  -18.62
+2.4  Seg length ending at pt. 962 >= 6.0 stdevs above mean at 25.7549.  (no action taken)
+     B1      X, Y, Z:  -356.34  42.04  -37.25
+2.5  Seg length ending at pt. 1328 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  -110.97  2.13  -29.98
+2.4  Seg length ending at pt. 1345 >= 6.0 stdevs above mean at 30.8587.  (no action taken)
+     B1      X, Y, Z:  -43.54  -62.69  -26.2
+2.5  Seg length ending at pt. 1360 <= 0.1 at 0.09.  (removed)
+     A       X, Y, Z:  -43.66  -85.32  -35.45
+2.5  Seg length ending at pt. 1430 <= 0.1 at 0.09.  (removed)
+     A       X, Y, Z:  -47.07  -87.78  -38.54
+2.5  Seg length ending at pt. 1558 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  -120.82  -7.63  -50.36
+2.4  Seg length ending at pt. 1691 >= 6.0 stdevs above mean at 35.1861.  (no action taken)
+     B1      X, Y, Z:  -39.38  -55.28  -80.13
+2.5  Seg length ending at pt. 2006 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  -127.69  -6.96  -84.0
+2.5  Seg length ending at pt. 2132 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  121.07  2.3  -36.58
+2.5  Seg length ending at pt. 2455 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  200.07  -21.12  -56.13
+2.5  Seg length ending at pt. 2493 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  213.54  -11.57  -56.13
+2.5  Seg length ending at pt. 2563 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  122.27  -36.15  -81.05
+2.4  Seg length ending at pt. 2658 >= 6.0 stdevs above mean at 36.2154.  (no action taken)
+     B1      X, Y, Z:  239.28  -30.09  -160.88
+2.5  Seg length ending at pt. 2659 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  239.28  -30.09  -160.96
+2.5  Seg length ending at pt. 2668 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  233.3  -32.53  -156.33
+2.5  Seg length ending at pt. 2707 <= 0.1 at 0.06.  (removed)
+     A       X, Y, Z:  188.83  -54.67  -135.97
+2.5  Seg length ending at pt. 2925 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  187.74  3.07  -51.88
+2.5  Seg length ending at pt. 3108 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  125.68  -9.4  -44.68
+2.5  Seg length ending at pt. 3174 <= 0.1 at 0.09.  (removed)
+     A       X, Y, Z:  85.06  -7.07  -42.4
+2.5  Seg length ending at pt. 3195 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  142.48  -26.2  -37.95
+2.4  Seg length ending at pt. 3240 >= 6.0 stdevs above mean at 33.074.  (no action taken)
+     B1      X, Y, Z:  197.89  -67.59  -55.13
+2.4  Seg length ending at pt. 3242 >= 6.0 stdevs above mean at 27.5681.  (no action taken)
+     B1      X, Y, Z:  224.91  -73.06  -55.36
+2.5  Seg length ending at pt. 3254 <= 0.1 at 0.09.  (removed)
+     A       X, Y, Z:  324.47  -26.98  -90.2
+2.5  Seg length ending at pt. 3256 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  327.82  -28.56  -92.63
+2.5  Seg length ending at pt. 3264 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  374.83  -21.5  -102.63
+2.5  Seg length ending at pt. 3346 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  310.74  -9.05  -101.65
+2.5  Seg length ending at pt. 3419 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  315.5  -23.31  -88.76
+2.1  Line 1 has 6 daughters.  Type is 1.  (no action taken)
+     B1      X, Y, Z:  0.0  0.0  0.0
+ 
+ 
+
+
+Number of type A irregularities = 24
+Number of type B1 irregularities = 9
+Number of type B2 irregularities = 0
+Number of type C irregularities = 0
