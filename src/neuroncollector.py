@@ -42,6 +42,7 @@ class NeuroScraper(object):
         profile.set_preference('browser.download.manager.showWhenStarting', False)
         profile.set_preference('browser.download.dir', os.getcwd())
         profile.set_preference('browser.helperApps.neverAsk.saveToDisk', 'application/zip')
+        print(profile)
         if self.machine==MACHINE_OPTIONS[0]:
             self.driver = webdriver.Firefox(firefox_binary=FirefoxBinary(
                 firefox_path='/Applications/FirefoxESR.app/Contents/MacOS/firefox'), firefox_profile=profile)
