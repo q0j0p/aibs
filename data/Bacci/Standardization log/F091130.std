@@ -1,0 +1,118 @@
+# Standardization file for F091130.swc created with StdSwc version 1.31 on 6/24/15.
+# Edited SWC file saved as F091130.swc.CNG.swc.  See StdSwc1.31.doc for more information.
+#
+# code   irregularity_description. (action taken)
+#     irregularity_type     coordinates
+#
+2.5  Seg length ending at pt. 2846 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  -13.62  46.84  3.77
+2.5  Seg length ending at pt. 2851 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  -25.96  71.79  7.33
+2.5  Seg length ending at pt. 2920 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  -51.95  211.68  -47.81
+2.5  Seg length ending at pt. 2922 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  -46.58  211.92  -59.25
+2.5  Seg length ending at pt. 3000 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  -31.1  238.77  -117.88
+2.5  Seg length ending at pt. 3027 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  2.1  159.01  -58.34
+2.5  Seg length ending at pt. 3107 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  -116.93  -265.77  51.19
+2.5  Seg length ending at pt. 95 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  -76.52  0.76  30.96
+2.5  Seg length ending at pt. 171 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  12.18  -67.96  38.99
+2.5  Seg length ending at pt. 187 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  25.04  -90.84  22.93
+2.5  Seg length ending at pt. 276 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  57.52  -68.43  42.63
+2.5  Seg length ending at pt. 283 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  88.58  -46.98  40.73
+2.5  Seg length ending at pt. 411 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  -90.01  -24.15  -17.36
+2.5  Seg length ending at pt. 419 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  -111.57  -31.88  -38.87
+2.5  Seg length ending at pt. 425 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  -138.13  -43.53  -48.94
+2.5  Seg length ending at pt. 446 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  -284.67  -55.5  -9.25
+2.5  Seg length ending at pt. 483 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  -443.64  -130.38  -40.23
+2.5  Seg length ending at pt. 582 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  -256.54  -115.5  -5.54
+2.5  Seg length ending at pt. 780 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  -357.87  -111.11  -82.2
+2.5  Seg length ending at pt. 793 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  -278.22  -111.6  -66.9
+2.5  Seg length ending at pt. 799 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  -256.53  -110.95  -64.17
+2.5  Seg length ending at pt. 981 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  -87.66  -90.18  -68.19
+2.5  Seg length ending at pt. 989 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  -129.86  -82.37  -72.2
+2.5  Seg length ending at pt. 1284 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  -221.24  -72.25  -114.24
+2.5  Seg length ending at pt. 1386 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  -434.82  -77.43  -175.83
+2.5  Seg length ending at pt. 1438 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  -213.53  -51.69  -121.59
+2.5  Seg length ending at pt. 1441 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  -210.99  -48.7  -106.14
+2.5  Seg length ending at pt. 1580 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  -41.81  -9.87  -129.92
+2.5  Seg length ending at pt. 1589 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  -134.7  -35.36  -49.7
+2.5  Seg length ending at pt. 1612 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  -101.42  -26.25  -78.71
+2.5  Seg length ending at pt. 1616 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  -103.91  -24.58  -85.46
+2.5  Seg length ending at pt. 1651 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  -72.66  -30.49  -106.44
+2.5  Seg length ending at pt. 1703 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  -134.52  -15.53  -164.99
+2.5  Seg length ending at pt. 1797 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  -118.39  -65.9  -10.16
+2.5  Seg length ending at pt. 1887 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  -54.85  -75.95  23.54
+2.5  Seg length ending at pt. 1905 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  -35.24  -58.83  5.96
+2.5  Seg length ending at pt. 1939 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  -151.49  -61.36  20.05
+2.5  Seg length ending at pt. 1954 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  -134.04  -107.52  14.22
+2.5  Seg length ending at pt. 2015 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  -112.56  -99.26  30.51
+2.5  Seg length ending at pt. 2170 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  63.8  -57.92  -51.97
+2.5  Seg length ending at pt. 2179 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  -2.37  -86.22  -13.11
+2.5  Seg length ending at pt. 2191 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  -33.88  -63.71  -13.57
+2.5  Seg length ending at pt. 2253 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  6.17  -116.68  -28.26
+2.5  Seg length ending at pt. 2264 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  -9.67  -142.4  -79.09
+2.5  Seg length ending at pt. 2298 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  -17.5  -211.85  -135.83
+2.5  Seg length ending at pt. 2606 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  173.37  16.66  -135.38
+2.5  Seg length ending at pt. 2635 <= 0.1 at 0.08.  (removed)
+     A       X, Y, Z:  268.42  16.76  -92.43
+2.4  Seg length ending at pt. 2643 >= 6.0 stdevs above mean at 36.2663.  (no action taken)
+     B1      X, Y, Z:  360.66  63.81  -93.79
+2.4  Seg length ending at pt. 2651 >= 6.0 stdevs above mean at 35.4454.  (no action taken)
+     B1      X, Y, Z:  427.62  102.97  -101.67
+2.5  Seg length ending at pt. 2689 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  648.91  261.17  -26.14
+2.5  Seg length ending at pt. 2737 <= 0.1 at 0.07.  (removed)
+     A       X, Y, Z:  70.41  -154.98  -55.76
+2.1  Line 1 has 5 daughters.  Type is 1.  (no action taken)
+     B1      X, Y, Z:  0.0  0.0  0.0
+ 
+ 
+
+
+Number of type A irregularities = 49
+Number of type B1 irregularities = 3
+Number of type B2 irregularities = 0
+Number of type C irregularities = 0

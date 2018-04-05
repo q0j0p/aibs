@@ -1,0 +1,13 @@
+# Standardization file for F100616.CNG.swc created with StdSwc version 1.31 on 6/25/15.
+#
+# code   irregularity_description. (action taken)
+#     irregularity_type     coordinates
+#
+2.4  Length of segment ending at point 170 >= 6.0 stdevs above mean at 70.0415.  (no action taken)
+     B1      X, Y, Z:  24.59  -15.02  63.84
+2.4  Length of segment ending at point 598 >= 6.0 stdevs above mean at 47.4203.  (no action taken)
+     B1      X, Y, Z:  200.71  85.2  23.18
+2.1  Line 1 has 5 daughters.  Type is 1.  (no action taken)
+     B1      X, Y, Z:  0.0  0.0  0.0
+ 
+ 

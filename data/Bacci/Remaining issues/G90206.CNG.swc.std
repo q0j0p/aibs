@@ -1,0 +1,35 @@
+# Standardization file for G90206.CNG.swc created with StdSwc version 1.31 on 6/25/15.
+#
+# code   irregularity_description. (action taken)
+#     irregularity_type     coordinates
+#
+2.4  Length of segment ending at point 994 >= 6.0 stdevs above mean at 32.0703.  (no action taken)
+     B1      X, Y, Z:  -64.85  6.31  -51.75
+2.4  Length of segment ending at point 1793 >= 6.0 stdevs above mean at 25.3312.  (no action taken)
+     B1      X, Y, Z:  -128.77  151.04  -69.09
+2.4  Length of segment ending at point 4290 >= 6.0 stdevs above mean at 44.5769.  (no action taken)
+     B1      X, Y, Z:  -105.83  -100.45  -24.7
+2.4  Length of segment ending at point 4624 >= 6.0 stdevs above mean at 47.865.  (no action taken)
+     B1      X, Y, Z:  12.92  -23.2  -40.59
+2.4  Length of segment ending at point 4982 >= 6.0 stdevs above mean at 22.9784.  (no action taken)
+     B1      X, Y, Z:  91.08  324.66  -22.0
+4.4  Line 696 of rad 0.15 links to 695 of rad 0.07.  (no action taken)
+     B1      X, Y, Z:  10.13  -1.03  -15.72
+4.4  Line 2979 of rad 0.15 links to 2978 of rad 0.07.  (no action taken)
+     B1      X, Y, Z:  82.59  -51.94  -9.5
+4.4  Line 3049 of rad 0.15 links to 2864 of rad 0.07.  (no action taken)
+     B1      X, Y, Z:  -48.49  -14.68  -2.79
+4.4  Line 3372 of rad 0.15 links to 3371 of rad 0.07.  (no action taken)
+     B1      X, Y, Z:  -146.36  -89.85  -11.39
+4.4  Line 3428 of rad 0.15 links to 3371 of rad 0.07.  (no action taken)
+     B1      X, Y, Z:  -141.33  -89.08  -12.0
+4.4  Line 3447 of rad 0.15 links to 3360 of rad 0.07.  (no action taken)
+     B1      X, Y, Z:  -105.57  -87.18  -9.1
+4.4  Line 5221 of rad 0.15 links to 5220 of rad 0.07.  (no action taken)
+     B1      X, Y, Z:  169.72  -89.92  -2.54
+4.4  Line 5302 of rad 0.15 links to 5288 of rad 0.07.  (no action taken)
+     B1      X, Y, Z:  120.8  -70.85  -22.75
+2.1  Line 1 has 6 daughters.  Type is 1.  (no action taken)
+     B1      X, Y, Z:  0.0  0.0  0.0
+ 
+ 

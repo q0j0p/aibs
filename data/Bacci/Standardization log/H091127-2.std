@@ -1,0 +1,52 @@
+# Standardization file for H091127-2.swc created with StdSwc version 1.31 on 11/23/15.
+# Edited SWC file saved as H091127-2.swc.CNG.swc.  See StdSwc1.31.doc for more information.
+#
+# code   irregularity_description. (action taken)
+#     irregularity_type     coordinates
+#
+2.5  Seg length ending at pt. 131 <= 0.1 at 0.0714.  (removed)
+     A       X, Y, Z:  -9.3  -67.67  80.8
+2.5  Seg length ending at pt. 189 <= 0.1 at 0.0735.  (removed)
+     A       X, Y, Z:  0.8  14.72  1.24
+2.5  Seg length ending at pt. 244 <= 0.1 at 0.0806.  (removed)
+     A       X, Y, Z:  -9.55  97.31  -40.82
+2.5  Seg length ending at pt. 261 <= 0.1 at 0.0806.  (removed)
+     A       X, Y, Z:  20.55  74.42  -13.3
+2.5  Seg length ending at pt. 264 <= 0.1 at 0.0872.  (removed)
+     A       X, Y, Z:  22.48  82.11  -13.96
+2.5  Seg length ending at pt. 308 <= 0.1 at 0.0671.  (removed)
+     A       X, Y, Z:  25.14  96.29  -16.74
+2.5  Seg length ending at pt. 324 <= 0.1 at 0.0735.  (removed)
+     A       X, Y, Z:  27.08  98.88  -18.71
+2.5  Seg length ending at pt. 358 <= 0.1 at 0.0714.  (removed)
+     A       X, Y, Z:  26.78  128.8  -13.55
+2.5  Seg length ending at pt. 422 <= 0.1 at 0.0735.  (removed)
+     A       X, Y, Z:  31.33  168.66  -22.04
+2.5  Seg length ending at pt. 426 <= 0.1 at 0.0735.  (removed)
+     A       X, Y, Z:  33.45  170.0  -30.54
+2.5  Seg length ending at pt. 486 <= 0.1 at 0.0806.  (removed)
+     A       X, Y, Z:  27.46  186.57  -27.69
+2.5  Seg length ending at pt. 558 <= 0.1 at 0.0714.  (removed)
+     A       X, Y, Z:  39.82  239.91  12.28
+2.4  Seg length ending at pt. 575 >= 6.0 stdevs above mean at 27.9779.  (no action taken)
+     B1      X, Y, Z:  68.35  297.46  38.69
+2.5  Seg length ending at pt. 604 <= 0.1 at 0.0735.  (removed)
+     A       X, Y, Z:  25.74  374.0  -35.51
+2.5  Seg length ending at pt. 864 <= 0.1 at 0.0735.  (removed)
+     A       X, Y, Z:  -95.34  415.78  26.68
+2.4  Seg length ending at pt. 1001 >= 6.0 stdevs above mean at 42.9334.  (no action taken)
+     B1      X, Y, Z:  -24.6  335.84  -69.89
+2.5  Seg length ending at pt. 1052 <= 0.1 at 0.0806.  (removed)
+     A       X, Y, Z:  51.76  98.64  12.07
+2.5  Seg length ending at pt. 1093 <= 0.1 at 0.0806.  (removed)
+     A       X, Y, Z:  8.37  65.26  22.32
+2.1  Line 1 has 5 daughters.  Type is 1.  (no action taken)
+     B1      X, Y, Z:  0.0  0.0  0.0
+ 
+ 
+
+
+Number of type A irregularities = 16
+Number of type B1 irregularities = 3
+Number of type B2 irregularities = 0
+Number of type C irregularities = 0
