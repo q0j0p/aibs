@@ -37,6 +37,7 @@ class NeuroScraper(object):
 
     def use_firefox(self):
         '''launch scraper firefox browser'''
+        print('use_firefox accessed')
         profile = webdriver.FirefoxProfile()
         profile.set_preference('browser.download.folderList', 2) # custom location
         profile.set_preference('browser.download.manager.showWhenStarting', False)
