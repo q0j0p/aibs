@@ -71,8 +71,8 @@ class NeuroScraper(object):
             self.driver = webdriver.Firefox(firefox_binary=FirefoxBinary(
                 firefox_path='/Applications/FirefoxESR.app/Contents/MacOS/firefox'), firefox_profile=self.profile)
         elif self.machine==MACHINE_OPTIONS[1]: # ubuntu
-            os.system("Xvfb :10 -ac &")
-            os.system("export DISPLAY=:10")
+            # os.system("Xvfb :10 -ac &")
+            # os.system("export DISPLAY=:10")
             self.driver = webdriver.Firefox(firefox_binary=FirefoxBinary(
                 firefox_path='/usr/bin/firefox'), firefox_profile=self.profile)
         self.get_page()
