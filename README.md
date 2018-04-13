@@ -15,6 +15,6 @@ Data were collected using Allen Institute's SDK or 'scraped' from the website an
 
 ## Analysis
 - Quantification of morphology using persistence barcodes
- - [notes/Persistence images of Bacci data.ipynb]("notes/Persistence images of Bacci data.ipynb")
- - [notes/Persistence images.ipynb]("notes/Persistence images.ipynb")
- - ("notes/Topological analysis.ipynb")
+ - [notes/Persistence images of Bacci data.ipynb](/notes/Persistence images of Bacci data.ipynb)
+ - (/notes/Persistence images.ipynb)
+ - </notes/Topological analysis.ipynb>
