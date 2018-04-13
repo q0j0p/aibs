@@ -16,5 +16,5 @@ Data were collected using Allen Institute's SDK or 'scraped' from the website an
 ## Analysis
 - Quantification of morphology using persistence barcodes  
   - <https://github.com/q0j0p/aibs/blob/master/notes/Persistence%20images.ipynb>
-  - [notes](notes/Persistence images.ipynb)
+  - <https://github.com/q0j0p/aibs/blob/master/notes/Topological%20analysis.ipynb>
   - <notes/Topological analysis.ipynb>
