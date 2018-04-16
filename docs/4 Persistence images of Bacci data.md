@@ -69,36 +69,6 @@ grid = np.vstack([X_grid.ravel(),Y_grid.ravel()])
 Zs = {}
 ```
 
-
-```python
-for i,a in enumerate(pbcodes):
-    print(a)
-```
-
-    H091127-1
-    E100616
-    A090909
-    F100616
-    A090622
-    F091118
-    A091109
-    D091030
-    H091127-2
-    C81113
-    E091118
-    F091109
-    A81212
-    G90206
-    C091109
-    C101118
-    C091118
-    D90203
-    F091130
-    B091130
-    D090910
-
-
-
 ```python
 for i, a in enumerate(pbcodes): 
     
