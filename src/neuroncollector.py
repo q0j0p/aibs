@@ -44,6 +44,7 @@ class NeuroScraper(object):
         self.raw_data_dir = self.abs_root_path + "raw/data/"
         self.download_dir = f"{self.raw_data_dir}scraper_tmp/"
         self.dest_directory = f"{self.raw_data_dir}{dest_directory}"
+        self.species = None
         if self.browser == "Firefox":
             self.use_firefox()
         elif self.browser == "Phantom":
@@ -71,7 +72,7 @@ class NeuroScraper(object):
             self.driver = webdriver.Firefox(firefox_binary=FirefoxBinary(
                 firefox_path='/Applications/FirefoxESR.app/Contents/MacOS/firefox'), firefox_profile=self.profile)
         elif self.machine==MACHINE_OPTIONS[1]: # ubuntu
-            os.system("Xvfb :90 -ac &")
+            #os.system("Xvfb :90 -ac &")
             os.system("export DISPLAY=:90")
             self.driver = webdriver.Firefox(firefox_binary=FirefoxBinary(
                 firefox_path='/usr/bin/firefox'), firefox_profile=self.profile)
@@ -172,6 +173,30 @@ class NeuroScraper(object):
     def get_swc_files(self):
         self.driver.get(self.target_url)
 
+    def process_filenames(self, species, neuron_strings, lab_names, brain_region_names, neuron_subset_names):
+        """Parse the desired filename from web element value by finding t"""
+        new_filenames= {}
+        str1len = len(species)
+        lab_names = list(set(lab_names))
+        brain_region_names =  list(set(brain_region_names))
+        neuron_subset_names = list(set(neuron_subset_names))
+
+        for a in neuron_strings:
+
+            str1 = a[:str1len]
+            str1rest = a[str1len:]
+            lab = max(list(filter(lambda x: str1rest.startswith(x), lab_names)), key=len)
+            str2 = str1rest[len(lab):]
+            region = max(list(filter(lambda x: str2.startswith(x), brain_region_names)), key=len)
+            str3 = str2[len(region):]
+            subset = max(list(filter(lambda x: str3.startswith(x), neuron_subset_names)), key=len)
+            str4 = str3[len(subset):]
+            #str_match = list(filter(lambda x: ))
+
+    #        print(f"for \n{a}\n{species}{lab}{region}{subset}")
+            new_filenames[a]= "_".join(f"{species}__{lab}__{region}__{subset}".split("/"))
+        return new_filenames
+
     def get_neuromorpho_species_swc_files(self, dest_dir=None, include_signature=False, include_aux=True, species_index=None):
         """Given `species_index`, download zipped swc files of species, organized in 'lab:brain region:neuron type:swc files' hierarchy"""
         if dest_dir:
@@ -181,39 +206,73 @@ class NeuroScraper(object):
         if not os.path.exists(dest_dir):
             os.makedirs(dest_dir)
             print(f"created new directory {dest_dir}")
-        self.get_species(species_index)
-        time.sleep(30)
-        lab_names, labs = self.get_species_source()
+        if not os.path.exists(self.download_dir):
+            os.makedirs(self.download_dir)
+            print(f"created new directory {self.download_dir}")
+
+        if not self.species:
+            self.species = self.get_species(species_index)
+            time.sleep(40)
+
+        _, labs = self.get_species_source()
         while(len(labs)==0):
             time.sleep(5)
-            lab_names, labs = self.get_species_source()
+            _, labs = self.get_species_source()
 
-        print(lab_names)
-        if include_aux==True:
+        if (include_aux==True and not self.driver.find_element_by_name('Aux').is_selected()):
             self.driver.find_element_by_name('Aux').click()
             print("Clicked 'include aux files'")
-        for i,a in enumerate(labs):
-            self.driver.switch_to.window(self.driver.window_handles[0])
-            lab_name = lab_names[i]
-            neuron_category_names, neuron_categories = self.get_neuron_category(a)
-            for j,b in enumerate(neuron_categories):
-                neuron_category_name = neuron_category_names[j]
-                neuron_subcategory_names, neuron_subcategories = self.get_neuron_subcategory(b)
 
-                for k,c in enumerate(neuron_subcategories):
-                    neuron_subcategory_name = neuron_subcategory_names[k]
-                    print("{} - Clicking on {}".format(i,c.get_attribute("value")))
-                    c.click()
-                    self.driver.find_element_by_xpath("//input[@value='Get SWC files of selected neurons']").click()
-                    time.sleep(3)
-                    filename = f"{lab_name}__{neuron_category_name}__{neuron_subcategory_name}"
-                    print(filename)
-                    self.driver.switch_to.window(self.driver.window_handles[1])
-                    time.sleep(10)
-                    self.click_download_and_rename_when_finished(dest_dir=dest_dir, filename=filename)
-                    self.driver.close()
-                    self.driver.switch_to.window(self.driver.window_handles[0])
-                    c.click()
+        lab_names = [a.text for a in self.driver.find_elements_by_xpath("//font[@id='lvl2']")]
+
+        brain_region_names =  [a.text for a in self.driver.find_elements_by_xpath("//font[@id='lvl3']")]
+
+        neuron_subset_names = [a.text for a in self.driver.find_elements_by_xpath("//font[@id='lvl4']")]
+
+        neuron_subsets = self.driver.find_elements_by_xpath("//font[@id='lvl4']/input")
+        neuron_strings = [a.get_attribute('value') for a in  neuron_subsets]
+
+        self.filenames_post = self.process_filenames("drosophila melanogaster",neuron_strings,lab_names,brain_region_names,neuron_subset_names)
+
+        for i,a in enumerate(neuron_subsets):
+            filename = self.filenames_post[neuron_strings[i]]
+            if f"{filename}.zip" not in os.listdir(dest_dir):
+                print("{} - Clicking on {}".format(i,neuron_strings[i]))
+                a.click()
+                self.driver.find_element_by_xpath("//input[@value='Get SWC files of selected neurons']").click()
+                time.sleep(5)
+                self.driver.switch_to.window(self.driver.window_handles[1])
+                time.sleep(5)
+                self.click_download_and_rename_when_finished(dest_dir=dest_dir, filename=filename)
+                self.driver.close()
+                self.driver.switch_to.window(self.driver.window_handles[0])
+                a.click()
+            else:
+                print(f"{filename} already in {dest_dir}")
+
+
+        # for i,a in enumerate(labs):
+        #     self.driver.switch_to.window(self.driver.window_handles[0])
+        #     lab_name = lab_names[i]
+        #     neuron_category_names, neuron_categories = self.get_neuron_category(a)
+        #     for j,b in enumerate(neuron_categories):
+        #         neuron_category_name = neuron_category_names[j]
+        #         neuron_subcategory_names, neuron_subcategories = self.get_neuron_subcategory(b)
+        #
+        #         for k,c in enumerate(neuron_subcategories):
+        #             neuron_subcategory_name = neuron_subcategory_names[k]
+        #             print("{} - Clicking on {}".format(i,c.get_attribute("value")))
+        #             c.click()
+        #             self.driver.find_element_by_xpath("//input[@value='Get SWC files of selected neurons']").click()
+        #             time.sleep(3)
+        #             filename = f"{lab_name}__{neuron_category_name}__{neuron_subcategory_name}"
+        #             print(filename)
+        #             self.driver.switch_to.window(self.driver.window_handles[1])
+        #             time.sleep(10)
+        #             self.click_download_and_rename_when_finished(dest_dir=dest_dir, filename=filename)
+        #             self.driver.close()
+        #             self.driver.switch_to.window(self.driver.window_handles[0])
+        #             c.click()
 
     def get_data_hierarchy(self, species_index=None):
         """Get hierarchy structure of data for given species"""
