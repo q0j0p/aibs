@@ -1,7 +1,6 @@
 
 # Persistence images for neurons in the "Bacci" archive (neuromorpho.org) 
 
-
 ```python
 import pymongo
 import sys, os
@@ -18,24 +17,15 @@ client = pymongo.MongoClient(host="mongodb://localhost/27017/")
 db = client.aibs
 db.collection_names()
 ```
-
-
-
-
     ['nmorpho', 'features', 'morphology', 'persistence_barcodes', 'neurons']
-
-
-
 
 ```python
 bacci_swc_files = os.listdir('../data/Bacci/CNG version/')
 ```
 
-
 ```python
 pbcodes = {}
 ```
-
 
 ```python
 skiprows={}
