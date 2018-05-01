@@ -11,6 +11,7 @@ def ntree1(testdata='data/test_swc_data.swc'):
 
 def test_ntree_df(ntree1):
     assert isinstance(ntree1.df, type(pd.DataFrame()))
+    assert ntree1.df.ix[0,'parent']==-1
 
 def test_ntree_pbc(ntree1):
     assert isinstance(ntree1.get_persistence_barcode(),list)
