@@ -4,6 +4,7 @@ import numpy as np
 import collections
 import functools
 import operator
+import subprocess
 
 def preview_file(swcfile, rows=15):
     """Preview swc header and first few lines"""
@@ -90,9 +91,16 @@ def memoize(obj):
 class NTree(object):
     """This class generates morophology information from swc files.
     """
-    def __init__(self, swcfile, skiprows=1, root_index=1):
+    def __init__(self, swcfile, skiprows=None, root_index=1):
         self.root_index = root_index
-        self.df = self.load_to_dataframe(swcfile, skiprows=skiprows, sep=" ")
+        if skiprows==None:
+            cmd1 = ["grep", "^#", swcfile]
+            cmd2 = ["wc", "-l"]
+    #    print(cmd1, cmd2)
+            grep = subprocess.Popen(cmd1, stdout=subprocess.PIPE)
+            out = subprocess.check_output(cmd2, stdin = grep.stdout)
+            self.skiprows = int(out.strip())
+        self.df = self.load_to_dataframe(swcfile, skiprows=self.skiprows, sep=" ")
         self.df['child_indices'] = self._get_child_list()
         self.df['euc_dist_to_root'] = self.get_euc_distance_to_root()
         self.branch_nodes = self.get_branch_nodes()
@@ -102,8 +110,8 @@ class NTree(object):
     def preview_file(swcfile, rows=15):
         preview_file(swcfile, rows)
 
-    def load_to_dataframe(self,swcfile,skiprows=None, sep=" "):
-        return load_to_dataframe(swcfile,skiprows=skiprows, sep=" ")
+    def load_to_dataframe(self,swcfile,skiprows, sep=" "):
+        return load_to_dataframe(swcfile,skiprows=self.skiprows, sep=" ")
 
     def verify_swc_structure(self):
         assert self.df.iloc[0,5] == -1
