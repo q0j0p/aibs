@@ -1,12 +1,18 @@
 import luigi
+import luigi.contrib.hdfs
+import luigi.contrib.s3
 import os, sys
 import inspect
 import pymongo
 import zipfile
 import h5py
+import boto3
+import io
+import pdb
 PROJECT_ROOT = "/Users/User1/DS/aibs/"
 sys.path.append(PROJECT_ROOT+"/src/")
-from src import neuromorpho_api
+import neuromorpho_api
+import swcfunctions
 """
 Pipeline
 -------
@@ -19,14 +25,24 @@ _.  Acquire files containing .swc files from neuromorpho.org and store in s3 buc
 
 class s3Config(luigi.Config):
     bucket = luigi.Parameter()
-    key = luigi.Parameter()
+
+
 
 class DataParams(luigi.Config):
     species = luigi.Parameter()
     swc_dir = luigi.Parameter()
 
+class GetSwcData(luigi.Task):
+    def requires(self):
+        return None
+
+    def output(self):
+        #return luigi.contrib.s3.S3Target("s3://neuromorphodata/")
+        swcpath = os.path.join(PROJECT_ROOT,"raw","data","swc_data")
+        return [luigi.LocalTarget(os.path.join(swcpath,a)) for a in os.listdir(swcpath)]
+
 class GetNeuronIDs(luigi.Task):
-    """Get IDs of neurons to work on."""
+    """Get IDs of neuron from source (neuromorpho.org)"""
     species = luigi.Parameter()
     def requires(self):
         return None
@@ -44,40 +60,94 @@ class GetNeuronIDs(luigi.Task):
     def output(self):
         path = PROJECT_ROOT + "data/"
         filename = self.species + "__ids.tsv"
-        return luigi.LocalTarget(path + filename)
+        return luigi.local_target.LocalTarget(path + filename, is_tmp=False)
 
-class GetZippedSwc(luigi.Task):
-    """Get zipped swc files acquired from neuromorpho.org and store as """
-    swc_dir = luigi.Parameter()
+class GetNeuronData(luigi.Task):
+    """Scrape data files from source and store as zipped file (per neuromorpho settings)"""
+    species = luigi.Parameter()
+    store = "local"
+    def requires(self):
+        return GetNeuronIDs('drosophila melanogaster')
+
+
     def run(self):
-        for filepath in os.abspath(os.listdir(self.swc_dir)):
-            archive = zipfile.ZipFile(filepath)
-            cng_version_files = list(filter(lambda x: "CNG version" in x.filename, [a for a in archive.filelist]))
-            for a in cng_version_files:
-                name = a.filename.split("/")[-1].split(".")[0]
-                h5f = h5py.File(f"{name}.h5", 'w')
-                h5f.create_dataset('dataset_1', data=a)
+        """Scrape code"""
+        for out_dir in self.output():
+            luigi.local_target.LocalFileSystem().mkdir(out_dir.path)
 
     def output(self):
-        return luigi.contrib.hdfs.HdfsTarget(self.date.strftime('data/streams_%Y_%m_%d_faked.tsv'))
+        """"""
+        path = PROJECT_ROOT + "data/" + self.species
+        if self.store == "hdfs":
+            filename = self.species
+            return luigi.contrib.hdfs.HdfsTarget(path + filename, format=luigi.contrib.hdfs.format.PlainDir)
+        if self.store == "local":
+            with self.input().open('r') as input_file:
+                ids = [a.strip().split('\t')[1] for a in input_file]
+                return [luigi.LocalTarget(path+"/"+id) for id in ids[1:]]
 
-class GetSwcData(luigi.Task):
-    """"""
-    swc_dir = luigi.Parameter()
+
+#        return luigi.LocalTarget()
+
+class GetZippedSwc(luigi.Task):
+    """Get zipped swc files acquired from neuromorpho.org and store in HDF"""
+    #swc_dir = luigi.Parameter()
+    species = luigi.Parameter()
+    store = "local"
     def requires(self):
-        return [ InputText(self.swc_dir + '/' + filename)
-                for filename in listdir(self.input_dir) ]
+        swcpath = os.path.join(PROJECT_ROOT,"raw","data","swc_data")
+        return [GetNeuronData(species = self.species),  GetSwcData()]
+
 
     def run(self):
-        for filepath in os.abspath(os.listdir(self.swc_dir)):
-            archive = zipfile.ZipFile(filepath)
-            cng_version = filter(lambda x: "CNG version" in x, [a.filename for a in archive.filelist])
+        # for a in os.abspath(os.listdir(self.swc_dir)):
+        #     archive = zipfile.ZipFile(filepath)
+        #     cng_version_files = list(filter(lambda x: "CNG version" in x.filename, [a for a in archive.filelist]))
+        #     for a in cng_version_files:
+        #         name = a.filename.split("/")[-1].split(".")[0]
+        #         with h5py.File(f"{self.species}.h5", 'w') as h5f:
+        #             h5f.create_group(name, data=a)
+        # Not atomic, but can't do much right now
+        # s3 = boto3.resource('s3')
+        # bucket = s3.Bucket('neuromorphodata')
+        # for a in bucket.objects.all():
+        #
+        #     archive = zipfile.ZipFile(io.BytesIO(a.get()["Body"].read()))
+        #     print(archive)
+        #     cng_version_files = list(filter(lambda x: "CNG version" in x.filename,  archive.filelist))
+        #     for b in cng_version_files:
+        #         with open('tmp.swc', 'wb') as tmp_swcfile:
+        #             tmp_swcfile.write(archive.read(b))
+        #         data = swcfunctions.NTree("tmp.swc").get_persistence_barcode()
+        #         pathlist = b.filename.split("/")
+        #         labname = pathlist[0]
+        #         cellname = pathlist[-1].split(".")[0]
+        #         with h5py.File(f"{self.species}.h5", 'w') as h5f:
+        #             h5f.create_dataset(f"{labname}/{cellname}", data=data)
+
+        for a in self.input()[1]:
+            archive = zipfile.ZipFile(a.path)
+            print(archive)
+            cng_version_files = list(filter(lambda x: "CNG version" in x.filename,  archive.filelist))
+            for b in cng_version_files:
+                with open('tmp.swc', 'wb') as tmp_swcfile:
+                    tmp_swcfile.write(archive.read(b))
+                #pdb.set_trace()
+                ntree = swcfunctions.NTree("tmp.swc")
+                data = ntree.get_persistence_barcode()
+                pathlist = b.filename.split("/")
+                labname = pathlist[0]
+                cellname = pathlist[-1].split(".")[0]
+                with h5py.File(f"{self.species}.h5", 'a') as h5f:
+                    h5f.create_dataset(f"{labname}/{cellname}", data=data)
+            a.close()
+    def output(self):
+        return luigi.contrib.hdfs.HdfsTarget(f"{PROJECT_ROOT}/data/{self.species}.h5")
+
 
 
 class GetSwc(luigi.Task):
-    """Data Collection
-    This class represents something that was created elsewhere by an external process,
-    so all we want to do is to implement the output method.
+    """
     """
     swc_dir = luigi.Parameter()
     species= luigi.Parameter()

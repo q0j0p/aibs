@@ -15,7 +15,7 @@ def preview_file(swcfile, rows=15):
 
 def load_to_dataframe(swcfile, skiprows=None,
             names=['type','x_coord','y_coord','z_coord','radius','parent'],
-            dtype={'index':'uint8','type':'uint8','parent':'int32'},
+            dtype={'type':'int8','parent':'int32'},
             sep=" ",
             **kwargs):
     """Load swc file to pandas dataframe and return"""
@@ -111,7 +111,7 @@ class NTree(object):
         preview_file(swcfile, rows)
 
     def load_to_dataframe(self,swcfile,skiprows, sep=" "):
-        return load_to_dataframe(swcfile,skiprows=self.skiprows, sep=" ")
+        return load_to_dataframe(swcfile,skiprows=self.skiprows, sep=sep, skipinitialspace=True)
 
     def verify_swc_structure(self):
         assert self.df.iloc[0,5] == -1
@@ -239,7 +239,7 @@ class NTree(object):
                             D_t.append((v_[c], self.df.loc[p,'euc_dist_to_root']))
                     v_[p] = v_[c_m]
         D_t.append((v_[self.root_index],self.df.loc[self.root_index,'euc_dist_to_root']))
-        return D_t
+        return np.array(D_t)
 
     def barcode_density_profile(self):
         pass

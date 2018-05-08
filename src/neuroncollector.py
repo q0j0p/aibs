@@ -9,6 +9,12 @@ import selenium
 from selenium import webdriver
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+import h5py
+
+import zipfile
+import swcfunctions
+
+PROJECT_ROOT = "/Users/User1/DS/aibs/"
 
 PROJECT_NAME = 'aibs'
 MONGODB_URI = 'mongodb://localhost:27017/'
@@ -16,8 +22,7 @@ MONGODB_NAME = 'aibs'
 MACHINE_OPTIONS= ['mac', 'ubuntu']
 
 class NeuroScraper(object):
-
-    """Web scraping functions for data collection.
+    """Web scraping functions for neuromorpho.org data collection.
 
     """
 
@@ -28,7 +33,6 @@ class NeuroScraper(object):
                  url="http://neuromorpho.org/byspecies.jsp",
                  dest_directory="swc_data/"
                  ):
-        # connect to
         try:
             self.mongoclient = pymongo.MongoClient(MONGODB_URI)
             print("Connected to {}".format(MONGODB_URI))
@@ -299,6 +303,41 @@ class NeuroScraper(object):
                     names.append((lab_names[i],cat_names[j],subcat_names[k]))
         return names
 
+#====================================================================
+# Other functions for data
+#====================================================================
 
-class NMorpho(object):
-    """"""
+class ExtractData(object):
+    def __init__(self, species):
+        self.species = species
+
+    @staticmethod
+    def get_zipped_data(zfile_path, string="CNG version"):
+        """"""
+        archive = zipfile.ZipFile(zfile_path)
+        files_w_errors = []
+        print(archive)
+        cng_version_files = list(filter(lambda x: string in x.filename,  archive.filelist))
+        for b in cng_version_files:
+            print(b.filename)
+            with open('tmp.swc', 'wb') as tmp_swcfile:
+                tmp_swcfile.write(archive.read(b))
+
+            #pdb.set_trace()
+    #        prev_file = swcfunctions.NTree.preview_file('tmp.swc')
+            try:
+                ntree = swcfunctions.NTree("tmp.swc")
+
+                print(ntree.skiprows)
+                data = ntree.get_persistence_barcode()
+                pathlist = b.filename.split("/")
+                labname = pathlist[0]
+                cellname = pathlist[-1].split(".")[0]
+                print(f"{labname}/{cellname}")
+
+                with h5py.File(f"{PROJECT_ROOT}/data/{SPECIES}.h5", 'a') as h5f:
+                    h5f.create_dataset(f"{labname}/{cellname}", data=data)
+            except Exception as e:
+                print(f"Error in {b.filename}\n\t{e}")
+                files_w_errors.append(b.filename)
+        self.errors = files_w_errors

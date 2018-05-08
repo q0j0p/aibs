@@ -96,7 +96,15 @@ MONGODB_URI = 'mongodb://localhost:27017/'
 
         swc.preview_file(swcfile)
 
+def access_aws(self, s3key):
+    session = boto3.Session(aws_access_key_id=AWS_KEY, aws_secret_access_key=AWS_SECRET)
+    s3 = session.resource('s3')
+    mybucket = s3.Bucket('ohailolcat')
+    for f in mybucket.objects.filter(Prefix='{}/'.format(s3key)):
+        pass
 
+def transfer_to_s3(self, s3key):
+    """transfer files from path to s3 bucket, preserving data structure"""
 
 
 class aibs(object):
