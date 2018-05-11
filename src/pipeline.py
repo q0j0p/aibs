@@ -13,6 +13,7 @@ PROJECT_ROOT = "/Users/User1/DS/aibs/"
 sys.path.append(PROJECT_ROOT+"/src/")
 import neuromorpho_api
 import swcfunctions
+import neuroncollector
 """
 Pipeline
 -------
@@ -22,28 +23,25 @@ _.  Acquire files containing .swc files from neuromorpho.org and store in s3 buc
 3.  Create persistence images as numpy arrans and store.
 4.
 """
+#
+# class s3Config(luigi.Config):
+#     bucket = luigi.Parameter()
+#
+# class s3Path(luigi.Task):
+#     def output(self):
+#         return luigi.contrib.s3.S3Target(
+#             path='s3://{}/{}'.format(s3Config().bucket, s3Config.key()))
 
-class s3Config(luigi.Config):
-    bucket = luigi.Parameter()
-
-
-
-class DataParams(luigi.Config):
+class Params(luigi.Config):
     species = luigi.Parameter()
     swc_dir = luigi.Parameter()
+    zipfile_location = luigi.Parameter()
 
-class GetSwcData(luigi.Task):
-    def requires(self):
-        return None
 
-    def output(self):
-        #return luigi.contrib.s3.S3Target("s3://neuromorphodata/")
-        swcpath = os.path.join(PROJECT_ROOT,"raw","data","swc_data")
-        return [luigi.LocalTarget(os.path.join(swcpath,a)) for a in os.listdir(swcpath)]
 
 class GetNeuronIDs(luigi.Task):
     """Get IDs of neuron from source (neuromorpho.org)"""
-    species = luigi.Parameter()
+    species = Params().species
     def requires(self):
         return None
 
@@ -54,24 +52,38 @@ class GetNeuronIDs(luigi.Task):
             output_file.write(f"neuron_id\tneuron_name\tarchive\tbrain_region\tcell_type\n")
 
             for id in ids:
+                id = utlis.filenames.clean_string(id)
                 output_file.write("\n".join(f'{a[0]}\t{a[1]}\t{a[2]}\t{a[3]}\t{a[4]}' for a in id))
                 output_file.write("\n")
 
     def output(self):
         path = PROJECT_ROOT + "data/"
         filename = self.species + "__ids.tsv"
-        return luigi.local_target.LocalTarget(path + filename, is_tmp=False)
+        return luigi.LocalTarget(path + filename)
+
+class ScrapeSwcFiles(luigi.Task):
+    """Scrape data files from source and store as zipped file (per neuromorpho settings)"""
+    zipfile_location = Params().zipfile_location
+
+    def run(self):
+        """Scrape code"""
+        pass
+
+    def output(self):
+        if zipfile_location == "local"
+            return [luigi.LocalTarget(PROJECT_ROOT+"raw/data/swc_data/"+a) for a in os.listdir(PROJECT_ROOT+"raw/data/swc_data/")]
 
 class GetNeuronData(luigi.Task):
-    """Scrape data files from source and store as zipped file (per neuromorpho settings)"""
+    """Collect scraped data"""
     species = luigi.Parameter()
     store = "local"
+
     def requires(self):
         return GetNeuronIDs('drosophila melanogaster')
 
 
     def run(self):
-        """Scrape code"""
+
         for out_dir in self.output():
             luigi.local_target.LocalFileSystem().mkdir(out_dir.path)
 
@@ -79,8 +91,9 @@ class GetNeuronData(luigi.Task):
         """"""
         path = PROJECT_ROOT + "data/" + self.species
         if self.store == "hdfs":
-            filename = self.species
+            filename = self.species + ".h5"
             return luigi.contrib.hdfs.HdfsTarget(path + filename, format=luigi.contrib.hdfs.format.PlainDir)
+
         if self.store == "local":
             with self.input().open('r') as input_file:
                 ids = [a.strip().split('\t')[1] for a in input_file]
@@ -92,11 +105,10 @@ class GetNeuronData(luigi.Task):
 class GetZippedSwc(luigi.Task):
     """Get zipped swc files acquired from neuromorpho.org and store in HDF"""
     #swc_dir = luigi.Parameter()
-    species = luigi.Parameter()
+    species = Params().species
     store = "local"
     def requires(self):
-        swcpath = os.path.join(PROJECT_ROOT,"raw","data","swc_data")
-        return [GetNeuronData(species = self.species),  GetSwcData()]
+        return GetNeuronData(species = self.species)
 
 
     def run(self):
@@ -125,22 +137,9 @@ class GetZippedSwc(luigi.Task):
         #         with h5py.File(f"{self.species}.h5", 'w') as h5f:
         #             h5f.create_dataset(f"{labname}/{cellname}", data=data)
 
-        for a in self.input()[1]:
-            archive = zipfile.ZipFile(a.path)
-            print(archive)
-            cng_version_files = list(filter(lambda x: "CNG version" in x.filename,  archive.filelist))
-            for b in cng_version_files:
-                with open('tmp.swc', 'wb') as tmp_swcfile:
-                    tmp_swcfile.write(archive.read(b))
-                #pdb.set_trace()
-                ntree = swcfunctions.NTree("tmp.swc")
-                data = ntree.get_persistence_barcode()
-                pathlist = b.filename.split("/")
-                labname = pathlist[0]
-                cellname = pathlist[-1].split(".")[0]
-                with h5py.File(f"{self.species}.h5", 'a') as h5f:
-                    h5f.create_dataset(f"{labname}/{cellname}", data=data)
-            a.close()
+        for a in self.input():
+            neuroncollector.ExtractData.get_zipped_data(a)
+
     def output(self):
         return luigi.contrib.hdfs.HdfsTarget(f"{PROJECT_ROOT}/data/{self.species}.h5")
 
@@ -149,8 +148,8 @@ class GetZippedSwc(luigi.Task):
 class GetSwc(luigi.Task):
     """
     """
-    swc_dir = luigi.Parameter()
-    species= luigi.Parameter()
+    swc_dir = Params().swc_dirname
+    species= Params().species
 
     def requires(self):
             return GetNeuronIDs(self.species)
@@ -158,11 +157,6 @@ class GetSwc(luigi.Task):
     def run(self):
         filenames = os.listdir(self.swc_dir)
         fn_parts = [filename.strip(".zip").split("__") for filename in filenames]
-
-        # if self.output():
-        #     option = "a"
-        # else:
-        #     option = "w"
 
         with self.output().open("w") as output_file:
             output_file.write("\n".join(fn_part[-1] for fn_part in fn_parts))
@@ -173,10 +167,6 @@ class GetSwc(luigi.Task):
         return luigi.LocalTarget(path + filename)
 
 
-class s3Path(luigi.Task):
-    def output(self):
-        return luigi.contrib.s3.S3Target(
-            path='s3://{}/{}'.format(s3Config().bucket, s3Config.key()))
 
 class CollectData(luigi.Task):
     # report_date = luigi.DateParameter()

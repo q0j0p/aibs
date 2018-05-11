@@ -4,17 +4,21 @@ import pymongo
 import os, shutil, sys
 import matplotlib.pyplot as plt
 import matplotlib.image as mplimg
+from csv import reader
 #from urllib import urlencode
 import selenium
 from selenium import webdriver
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 import h5py
-
 import zipfile
-import swcfunctions
 
 PROJECT_ROOT = "/Users/User1/DS/aibs/"
+
+sys.path.append(PROJECT_ROOT)
+from src import swcfunctions
+from src.utils import zipfiles
+
 
 PROJECT_NAME = 'aibs'
 MONGODB_URI = 'mongodb://localhost:27017/'
@@ -115,7 +119,7 @@ class NeuroScraper(object):
         while(any(list(map(lambda x: x.endswith('part'), os.listdir(self.download_dir))))):
             time.sleep(1)
         filename1 = max([self.download_dir+f for f in os.listdir(self.download_dir)], key=os.path.getctime)
-        destfname = "_".join(filename.split('/'))
+        destfname = utils.filenames.clean_string(filename)
         shutil.move(f"{filename1}",f"{dest_dir}{destfname}.zip")
         print(f"saved file {dest_dir}{destfname}.zip")
 
@@ -178,7 +182,7 @@ class NeuroScraper(object):
         self.driver.get(self.target_url)
 
     def process_filenames(self, species, neuron_strings, lab_names, brain_region_names, neuron_subset_names):
-        """Parse the desired filename from web element value by finding t"""
+        """Parse the desired filename from web element value by string matdh with name list"""
         new_filenames= {}
         str1len = len(species)
         lab_names = list(set(lab_names))
@@ -310,10 +314,25 @@ class NeuroScraper(object):
 class ExtractData(object):
     def __init__(self, species):
         self.species = species
-
+        self.error_files = []
     @staticmethod
-    def get_zipped_data(zfile_path, string="CNG version"):
-        """"""
+    def get_zipped_data(zfile_path, filename=None, string="CNG version"):
+        """
+        Extract .swc data from .zip files in zfile_path and save in .h5 file
+
+        Parameters
+        ----------
+        zfile_path : str
+            path for .zip file
+        filename : str
+            name of zipped file to be pulled from archive
+        string : string
+            directory in archive from which to pull file
+        """
+        h5_filepath = f"{PROJECT_ROOT}/data/{SPECIES}.h5"
+        if not os.path.exists(h5_filepath):
+            h5py.File(h5_filepath,"w")
+
         archive = zipfile.ZipFile(zfile_path)
         files_w_errors = []
         print(archive)
@@ -335,9 +354,86 @@ class ExtractData(object):
                 cellname = pathlist[-1].split(".")[0]
                 print(f"{labname}/{cellname}")
 
-                with h5py.File(f"{PROJECT_ROOT}/data/{SPECIES}.h5", 'a') as h5f:
-                    h5f.create_dataset(f"{labname}/{cellname}", data=data)
+                with h5py.File(h5_filepath, 'a') as h5f:
+                    h5f.create_dataset(f"{labname}/{cellname}/pbcode", data=data)
             except Exception as e:
                 print(f"Error in {b.filename}\n\t{e}")
                 files_w_errors.append(b.filename)
+        self.error_files.extend(files_w_errors)
+
+    @staticmethod
+    def get_files_from_zipped_archive(file_dict):
+        pass
+
+
+    def generate_swc_file_buffer(self, error_dict):
+        for a in error_dict:
+                if error_dict[a]:
+                    archive = zipfile.ZipFile(PROJECT_ROOT+"raw/data/swc_data/"+error_dict[a])
+                    for b in filter(lambda x: ("CNG version" in x.filename) and (a in x.filename),  archive.filelist):
+                        yield (b.filename,archive.read(b))
+                else:
+                    self.error_files.append(a)
+
+    def get_missing_data(self,h5_filepath):
+        all_neuron_ids = []
+
+        with open(PROJECT_ROOT+"data/drosophila melanogaster__ids.tsv", 'r') as f:
+            for row in reader(f):
+                all_neuron_ids.append(row[0].split("\t")[1])
+        neuronsw_pb = []
+        if not os.path.exists(h5_filepath):
+            h5py.File(h5_filepath,"w")
+
+        with h5py.File(h5_filepath,'r+') as h5file:
+            for a in list(h5file.keys()):
+                neuronsw_pb.extend(list(h5file[a].keys()))
+        error_neurons = set(all_neuron_ids) - set(neuronsw_pb)
+        print(f"Total number of neuron_ids is {len(all_neuron_ids)}")
+        print(f"Number of neurons with persistence barcode data in h5 file is {len(neuronsw_pb)}")
+        print(f"Neurons without persistence barcode data is {len(error_neurons)}")
+
+        error_neurons = list(error_neurons)
+
+        neuron_dict = {}
+        with open(PROJECT_ROOT+"data/drosophila melanogaster__ids.tsv", 'r') as f:
+            next(f)
+            for r in reader(f, delimiter="\t"):
+                neuron_dict[r[1]]= [r[2],r[3],r[4]]
+
+        zipfile_names = os.listdir(PROJECT_ROOT+"raw/data/swc_data/")
+
+        swcfile_list = []
+        for a in zipfile_names:
+            swcfile_list.append((a, zipfiles.get_zipped_data(f"{PROJECT_ROOT}raw//data/swc_data/{a}", string="CNG version")))
+
+
+        error_dict = {}
+        for a in error_neurons:
+
+            for b in list(filter(lambda x: a in "".join(x[1]), swcfile_list)):
+                error_dict[a] = b[0]
+
+
+        errorswc_gen = self.generate_swc_file_buffer(error_dict)
+
+        files_w_errors = []
+        for a in errorswc_gen:
+            print(a[0])
+            try:
+                ntree = swcfunctions.NTree(a[1])
+                data = ntree.get_persistence_barcode()
+                pathlist = a[0].split("/")
+                labname = pathlist[0]
+                cellname = pathlist[-1].split(".")[0]
+                print(f"{labname}/{cellname}")
+
+                with h5py.File(f"{PROJECT_ROOT}/data/{self.species}.h5", 'a') as h5f:
+                    h5f.create_dataset(f"{labname}/{cellname}/pbcode", data=data)
+            except Exception as e:
+                print(f"Error in {a[0]}\n\t{e}")
+                files_w_errors.append(a[0])
         self.errors = files_w_errors
+
+if __name__ == '__main__':
+    ExtractData(sys.argv[1]).get_missing_data("data/drosophila melanogaster.h5")

@@ -5,6 +5,8 @@ import collections
 import functools
 import operator
 import subprocess
+import io
+import re
 
 def preview_file(swcfile, rows=15):
     """Preview swc header and first few lines"""
@@ -91,20 +93,50 @@ def memoize(obj):
 class NTree(object):
     """This class generates morophology information from swc files.
     """
-    def __init__(self, swcfile, skiprows=None, root_index=1):
+    def __init__(self, swcfp, root_index=1):
         self.root_index = root_index
-        if skiprows==None:
-            cmd1 = ["grep", "^#", swcfile]
-            cmd2 = ["wc", "-l"]
-    #    print(cmd1, cmd2)
-            grep = subprocess.Popen(cmd1, stdout=subprocess.PIPE)
-            out = subprocess.check_output(cmd2, stdin = grep.stdout)
-            self.skiprows = int(out.strip())
-        self.df = self.load_to_dataframe(swcfile, skiprows=self.skiprows, sep=" ")
+        _, self.df = self.split_meta_data(swcfp)
         self.df['child_indices'] = self._get_child_list()
         self.df['euc_dist_to_root'] = self.get_euc_distance_to_root()
         self.branch_nodes = self.get_branch_nodes()
         self.terminal_nodes = self.get_terminal_nodes()
+
+    def __repr__(self):
+        return ""
+
+    def split_meta_data(self, swc):
+        if type(swc)== bytes:
+            s = str(swc, 'utf-8')
+        else:
+            s = open(swc,'r')
+            # pass only valid lines: comments (starts with #) and swc lines (starts with blank or int)
+        line_generator = (x.group(0).strip() for x in re.finditer(r"[# 0-9].+\s", s))
+        meta = io.StringIO()
+        swc = io.StringIO()
+        for line in line_generator:
+        #    print(line)
+            if re.match(r"^[ 0-9]+", line):
+                swc.write(f"{line}\n")
+            else:
+                meta.write(f"{line}\n")
+
+            # with open("meta.tmp","w") as m:
+            #     m.write(meta.getvalue())
+            # with open("swc.tmp", "w") as fs:
+            #     fs.write(swc.getvalue())
+        if type(s) == "_io.TextIOWrapper":
+            s.close()
+        meta.seek(0)
+        swc.seek(0)
+        return meta.read(), load_to_dataframe(swc)
+
+    def find_skiprows(self, swcfile):
+        """obsolete"""
+        cmd1 = ["grep", "^# ", swcfile]
+        cmd2 = ["wc", "-l"]
+        grep = subprocess.Popen(cmd1, stdout=subprocess.PIPE)
+        out = subprocess.check_output(cmd2, stdin = grep.stdout)
+        return int(out.strip())
 
     @staticmethod
     def preview_file(swcfile, rows=15):
