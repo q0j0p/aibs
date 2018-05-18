@@ -16,4 +16,4 @@ This personal project attempts to shape this neuroscientific endeavor into a dat
 zip files of .swc files were stored in an AWS s3 bucket, and metadata stored in a mongoDB database.  
 
 
-### Hierarchical clustering of persistence images
+### [Hierarchical clustering of persistence images](https://github.com/q0j0p/aibs/blob/master/notes/Hierarchical%20clustering.ipynb)
