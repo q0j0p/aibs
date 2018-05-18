@@ -8,7 +8,7 @@ Even with the latest technologies, single cell neuronal experiments are painstak
 This personal project attempts to shape this neuroscientific endeavor into a data science project, using relevant tools in the Python ecosystem.  As a first step, it makes use of >20k 3D reconstruction data available for the fruitfly and implements the persistence barcoding algorithm to represent the morphology of the neurons.  
 
 
-### Data sources
+## Data sources
 - [neuromorpho.org](http://neuromorpho.org/byspecies.jsp)
     - This is a .jsp site that requires scraping to obtain zipped files of the .swc data
     - Derived morphometry and other metadata are available by REST API.  
@@ -16,5 +16,5 @@ This personal project attempts to shape this neuroscientific endeavor into a dat
 zip files of .swc files were stored in an AWS s3 bucket, and metadata stored in a mongoDB database.  
 
 ## Data Analysis
-### [Persistence images of sample data](https://github.com/q0j0p/aibs/blob/master/notes/4%20Persistence%20images%20of%20Bacci%20data.ipynb)
-### [Hierarchical clustering of neurons based on persistence images](https://github.com/q0j0p/aibs/blob/master/notes/Hierarchical%20clustering.ipynb)
+### [Persistence images of sample data](https://github.com/q0j0p/aibs/blob/master/docs/4%20Persistence%20images%20of%20Bacci%20data.ipynb)
+### [Hierarchical clustering of neurons based on persistence images](https://github.com/q0j0p/aibs/blob/master/docs/Hierarchical%20clustering.ipynb)
