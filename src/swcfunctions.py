@@ -7,6 +7,8 @@ import operator
 import subprocess
 import io
 import re
+from sklearn.neighbors import KernelDensity
+import matplotlib.pyplot as plt
 
 def preview_file(swcfile, rows=15):
     """Preview swc header and first few lines"""
@@ -108,8 +110,10 @@ class NTree(object):
         if type(swc)== bytes:
             s = str(swc, 'utf-8')
         else:
-            s = open(swc,'r')
-            # pass only valid lines: comments (starts with #) and swc lines (starts with blank or int)
+            with open(swc,'r') as f:
+                s = "\n".join(f.readlines())
+
+        # pass only valid lines: comments (starts with #) and swc lines (starts with blank or int), sent to `meta` and `swc` buffers
         line_generator = (x.group(0).strip() for x in re.finditer(r"[# 0-9].+\s", s))
         meta = io.StringIO()
         swc = io.StringIO()
@@ -279,5 +283,20 @@ class NTree(object):
     def plot_morphology(self):
         """Retrieve 2d snapshot if available (if not, render) and plot"""
         pass
-    def plot_persistence_image(self):
-        """"""
+
+def create_persistence_image(pbcode, plot=True):
+    """Given persistence barcode, create persistence image"""
+    X_grid, Y_grid = np.mgrid[0:150:400j,0:150:400j]
+    grid = np.vstack([X_grid.ravel(),Y_grid.ravel()])
+    val = np.array([*zip(*pbcode)])
+    skl_kernel = KernelDensity(bandwidth=9)
+    skl_kernel.fit(val.T)
+    Zs = np.exp(skl_kernel.score_samples(grid.T))
+    if plot:
+        ax = plt.subplot()
+        v0,v1 = np.array([*zip(*list(pbcode))])
+        plt.imshow(np.rot90(Zs.reshape(400,-1)), cmap=plt.cm.RdYlBu_r, extent=[0, 150, 0, 150])
+        plt.plot( v0, v1, 'k.', markersize=2)
+        ax.set_xlim([0, 150])
+        ax.set_ylim([0, 150])
+    return Zs
