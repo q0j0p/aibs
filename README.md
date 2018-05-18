@@ -10,10 +10,11 @@ This personal project attempts to shape this neuroscientific endeavor into a dat
 
 ### Data sources
 - [neuromorpho.org](http://neuromorpho.org/byspecies.jsp)
-  - This is a .jsp site that requires scraping to obtain zipped files of the .swc data
-  - Derived morphometry and other metadata are available by REST API.  
+    - This is a .jsp site that requires scraping to obtain zipped files of the .swc data
+    - Derived morphometry and other metadata are available by REST API.  
 
 zip files of .swc files were stored in an AWS s3 bucket, and metadata stored in a mongoDB database.  
 
-
-### [Hierarchical clustering of persistence images](https://github.com/q0j0p/aibs/blob/master/notes/Hierarchical%20clustering.ipynb)
+## Data Analysis
+### [Persistence images of sample data](https://github.com/q0j0p/aibs/blob/master/notes/4%20Persistence%20images%20of%20Bacci%20data.ipynb)
+### [Hierarchical clustering of neurons based on persistence images](https://github.com/q0j0p/aibs/blob/master/notes/Hierarchical%20clustering.ipynb)
