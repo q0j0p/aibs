@@ -1,20 +1,19 @@
+This repository represents a project that attempts to classify neurons based on their morphological characteristics.  
 
+## Project description
+The neurons that make up our complex brains are intricately shaped and organized, and an understanding of cell type composition is necessary to understand how neurons confer the amazing functions of the brain.  The morphological, physiological, and transcriptomic characteristics of a cell, along with its connectivity, are the main features that shape function.  
 
-## Data collection and management
-Data were collected using Allen Institute's SDK or 'scraped' from the website and stored in MongoDB database.  
+Even with the latest technologies, single cell neuronal experiments are painstaking and manually labor intensive, but by aggregating all available data, we may now be able to make use of data science tools to gain further understanding of the cell types.  
 
-### Scraped data from neuromorpho.org: .swc files and associated metadata
-- 17817 neurons (mouse) from 217 labs
-- 2720 neurons (human) from 15 labs
-- 20k+ neurons (drosophila) from 18 labs
+This personal project attempts to shape this neuroscientific endeavor into a data science project, using relevant tools in the Python ecosystem.  As a first step, it makes use of >20k 3D reconstruction data available for the fruitfly and implements the persistence barcoding algorithm to represent the morphology of the neurons.  
+
 
 ### Data sources
-- [Allen Institute cell types api](http://alleninstitute.github.io/AllenSDK/cell_types.html)
 - [neuromorpho.org](http://neuromorpho.org/byspecies.jsp)
+ - This is a .jsp site that requires scraping to obtain zipped files of the .swc data
+ - Derived morphometry and other metadata are available by REST API.  
+
+zip files of .swc files were stored in an AWS s3 bucket, and metadata stored in a mongoDB database.  
 
 
-## Analysis
-- Quantification of morphology using persistence barcodes  
-  - <https://github.com/q0j0p/aibs/blob/master/notes/Persistence%20images.ipynb>
-  - <https://github.com/q0j0p/aibs/blob/master/notes/Topological%20analysis.ipynb>
-  - <https://github.com/q0j0p/aibs/blob/master/notes/4%20Persistence%20images%20of%20Bacci%20data.ipynb>
+### Hierarchical clustering of persistence images
