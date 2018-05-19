@@ -15,4 +15,4 @@ zip files of .swc files were stored in an AWS s3 bucket, and metadata stored in 
 
 ## Data Analysis
 ### [Persistence images of sample data](https://github.com/q0j0p/aibs/blob/master/docs/4%20Persistence%20images%20of%20Bacci%20data.ipynb)
-### [Hierarchical clustering of neurons based on persistence images](https://github.com/q0j0p/aibs/blob/master/docs/Hierarchical%20clustering.ipynb)
+### [Hierarchical clustering of neurons based on persistence images](https://github.com/q0j0p/aibs/blob/master/docs/Kenyon_cells.ipynb)
