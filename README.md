@@ -1,5 +1,5 @@
 ## Project description
-The neurons that make up our complex brains are intricately shaped and organized, and an understanding of cell type composition is necessary to understand how neurons confer the amazing functions of the brain.  The morphological, physiological, and transcriptomic characteristics of a cell, along with its connectivity, are the main features that shape function.  
+The neurons that make up our complex brains are intricately shaped and organized, and we need to make sense of the various cell types involved to begin to understand how neurons confer the amazing functions of the brain.  The morphological, physiological, and transcriptomic characteristics of a cell, along with its connectivity, are the main features that shape function.  
 
 Even with the latest technologies, single cell neuronal experiments are painstaking and manually labor intensive, but by aggregating all available data, we may now be able to make use of data science tools to gain further understanding of the cell types.  
 
