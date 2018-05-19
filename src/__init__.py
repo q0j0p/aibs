@@ -1,2 +1,2 @@
 import os
-PROJECT_ROOT = os.path.abspath("..")
+PROJECT_ROOT = "/Users/User1/DS/aibs/"
