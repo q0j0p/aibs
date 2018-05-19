@@ -1,5 +1,3 @@
-This repository represents a project that attempts to classify neurons based on their morphological characteristics.  
-
 ## Project description
 The neurons that make up our complex brains are intricately shaped and organized, and an understanding of cell type composition is necessary to understand how neurons confer the amazing functions of the brain.  The morphological, physiological, and transcriptomic characteristics of a cell, along with its connectivity, are the main features that shape function.  
 
