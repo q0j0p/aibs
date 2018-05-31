@@ -13,6 +13,11 @@ This personal project attempts to shape this neuroscientific endeavor into a dat
 
 zip files of .swc files were stored in an AWS s3 bucket, and metadata stored in a mongoDB database.  
 
+## Data cleaning and EDA  
+- <https://github.com/q0j0p/aibs/blob/master/docs/Data_cleaning.ipynb>
+- <https://github.com/q0j0p/aibs/blob/master/docs/Data_labels.ipynb>
+
+
 ## Data Analysis
 ### [Persistence images of sample data](https://github.com/q0j0p/aibs/blob/master/docs/4%20Persistence%20images%20of%20Bacci%20data.ipynb)
 ### [Hierarchical clustering of neurons based on persistence images](https://github.com/q0j0p/aibs/blob/master/docs/Kenyon_cells.ipynb)
